@@ -59,9 +59,9 @@ public class DriverLocator {
                                 }
                             }
                         } catch (ClassNotFoundException ex) {
-                            Logger.getLogger(DriverLocator.class.getName()).log(Level.SEVERE, null, ex);
+                            // we don't care since this class can't be found, it can't be a driver
                         } catch (NoClassDefFoundError ncdfe ){
-                            Logger.getLogger(DriverLocator.class.getName()).log(Level.SEVERE, null, ncdfe);
+                            // we don't care since this class can't be found, it can't be a driver
                         }
 
                     }
