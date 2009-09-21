@@ -9,6 +9,9 @@ import java.util.Map;
  */
 public final class ConnectionStringUtil {
 
+    /**
+     * This is the list of known driver types that the application can process.
+     */
     private static Map<String, String> knownDrivers = new HashMap<String, String>();
 
     static {
@@ -34,5 +37,19 @@ public final class ConnectionStringUtil {
      */
     public static boolean isKnownDriver( String driverClass ) {
         return knownDrivers.containsKey( driverClass );
+    }
+
+    /**
+     * Returns a properly formatted connection string.  Uses the input parameters and
+     * driver type to build a smart connection string.analyze javadoc
+     * @param driverClass
+     * @param dbName
+     * @param username
+     * @param password
+     * @return
+     */
+    public static String getConnectionString( String driverClass, String dbName, String username, String password ){
+        StringBuilder connString = new StringBuilder();
+        return connString.toString();
     }
 }
