@@ -4,6 +4,7 @@
 package com.voet.datasetcreator;
 
 import com.voet.datasetcreator.swing.MyComboBoxModel;
+import com.voet.datasetcreator.util.ConnectionStringUtil;
 import com.voet.datasetcreator.util.DriverLocator;
 import com.voet.datasetcreator.util.Tuple;
 import java.util.List;
@@ -52,7 +53,9 @@ public class DatasetCreatorApp extends SingleFrameApplication {
         List<String> driverClasses = DriverLocator.locateDrivers();
         drivers.add( new Tuple( "", "Please Select from the availble drivers" ) );
         for ( String driver : driverClasses ) {
-            drivers.add( new Tuple( driver, driver ) );
+            if ( ConnectionStringUtil.isKnownDriver( driver )){
+                drivers.add( new Tuple( driver, ConnectionStringUtil.getDriverName( driver ) ) );
+            }
         }
         return drivers;
     }
