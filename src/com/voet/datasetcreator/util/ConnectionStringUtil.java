@@ -1,5 +1,6 @@
 package com.voet.datasetcreator.util;
 
+import com.voet.datasetcreator.util.connection.ConnectionStringBuilder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +19,7 @@ public final class ConnectionStringUtil {
         knownDrivers.put( "oracle.jdbc.driver.OracleDriver", "Oracle - thin" );
         knownDrivers.put( "com.mysql.jdbc.Driver", "MySQL" );
         knownDrivers.put( "org.apache.derby.jdbc.EmbeddedDriver", "Derby - Embedded" );
-        knownDrivers.put( "org.apache.derby.jdbc.CientDriver", "Derby - Client" );
+        knownDrivers.put( "org.apache.derby.jdbc.ClientDriver", "Derby - Client" );
     }
 
     /**
@@ -48,8 +49,8 @@ public final class ConnectionStringUtil {
      * @param password
      * @return
      */
-    public static String getConnectionString( String driverClass, String dbName, String username, String password ){
-        StringBuilder connString = new StringBuilder();
-        return connString.toString();
+    public static String getConnectionString( String host, String port, String driverClass, String dbName, String username, String password ){
+        ConnectionStringBuilder builder = ConnectionStringFactory.getBuilder( driverClass );
+        return builder.build(host, port, dbName, username, password);
     }
 }

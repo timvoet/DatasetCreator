@@ -4,6 +4,7 @@
 
 package com.voet.datasetcreator;
 
+import com.voet.datasetcreator.util.Tuple;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.ResourceMap;
 import org.jdesktop.application.SingleFrameApplication;
@@ -102,7 +103,9 @@ public class DatasetCreatorView extends FrameView {
 
         mainPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        cboDrivers = new javax.swing.JComboBox();
+        pnlConnInfo = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
@@ -120,8 +123,34 @@ public class DatasetCreatorView extends FrameView {
         jLabel1.setText(resourceMap.getString("lbl_drivers.text")); // NOI18N
         jLabel1.setName("lbl_drivers"); // NOI18N
 
-        jComboBox1.setModel(DatasetCreatorApp.getDriverList());
-        jComboBox1.setName("jComboBox1"); // NOI18N
+        cboDrivers.setModel(DatasetCreatorApp.getDriverList());
+        cboDrivers.setName("cboDrivers"); // NOI18N
+        cboDrivers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                driverSelectionChanged(evt);
+            }
+        });
+
+        pnlConnInfo.setToolTipText(resourceMap.getString("pnlConnInfo.toolTipText")); // NOI18N
+        pnlConnInfo.setName("pnlConnInfo"); // NOI18N
+
+        jLabel2.setText(resourceMap.getString("lblHostName.text")); // NOI18N
+        jLabel2.setName("lblHostName"); // NOI18N
+
+        javax.swing.GroupLayout pnlConnInfoLayout = new javax.swing.GroupLayout(pnlConnInfo);
+        pnlConnInfo.setLayout(pnlConnInfoLayout);
+        pnlConnInfoLayout.setHorizontalGroup(
+            pnlConnInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlConnInfoLayout.createSequentialGroup()
+                .addComponent(jLabel2)
+                .addContainerGap(491, Short.MAX_VALUE))
+        );
+        pnlConnInfoLayout.setVerticalGroup(
+            pnlConnInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlConnInfoLayout.createSequentialGroup()
+                .addComponent(jLabel2)
+                .addContainerGap(86, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
@@ -129,10 +158,13 @@ public class DatasetCreatorView extends FrameView {
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(378, Short.MAX_VALUE))
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlConnInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(cboDrivers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,8 +172,10 @@ public class DatasetCreatorView extends FrameView {
                 .addContainerGap()
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(247, Short.MAX_VALUE))
+                    .addComponent(cboDrivers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlConnInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(158, Short.MAX_VALUE))
         );
 
         menuBar.setName("menuBar"); // NOI18N
@@ -184,7 +218,7 @@ public class DatasetCreatorView extends FrameView {
             .addGroup(statusPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(statusMessageLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 375, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 389, Short.MAX_VALUE)
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(statusAnimationLabel)
@@ -207,11 +241,25 @@ public class DatasetCreatorView extends FrameView {
         setStatusBar(statusPanel);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void driverSelectionChanged(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_driverSelectionChanged
+        System.out.println("Inside change CBO");
+        Tuple<String,String> choice = (Tuple<String, String>) cboDrivers.getSelectedItem();
+        System.out.println(choice.getFirst().toString());
+        if ( choice.getFirst() == null || choice.getFirst().trim().length() == 0 ){
+            pnlConnInfo.setVisible( false );
+        } else  {
+            pnlConnInfo.setVisible( true );
+        }
+
+    }//GEN-LAST:event_driverSelectionChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox cboDrivers;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JPanel pnlConnInfo;
     private javax.swing.JProgressBar progressBar;
     private javax.swing.JLabel statusAnimationLabel;
     private javax.swing.JLabel statusMessageLabel;
