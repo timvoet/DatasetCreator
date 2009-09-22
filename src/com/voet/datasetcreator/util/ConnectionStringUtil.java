@@ -32,8 +32,13 @@ public final class ConnectionStringUtil {
     }
 
     /**
-     * Is the driver a known driver.
-     * @param driverClass
+     * Checks an internal map of known drivers.
+     * <p>
+     * the purpose behind this, is that different drivers require different formats
+     * of connection strings.  We dynamically scan the classpath for drivers available
+     * but those drivers must be understood, and be able to generate the
+     * appropriate information to connect to the db.
+     * @param driverClass The class we are trying to connect using.
      * @return
      */
     public static boolean isKnownDriver( String driverClass ) {
@@ -42,11 +47,13 @@ public final class ConnectionStringUtil {
 
     /**
      * Returns a properly formatted connection string.  Uses the input parameters and
-     * driver type to build a smart connection string.analyze javadoc
-     * @param driverClass
-     * @param dbName
-     * @param username
-     * @param password
+     * driver type to build a smart connection string.
+     * @param host The hostname where the database server resides
+     * @param port The port number to which it accepts connections
+     * @param driverClass The class to use to connect.  This has an impact on the connection string
+     * @param dbName The database name to connect to
+     * @param username The username to connect
+     * @param password The password to connect
      * @return
      */
     public static String getConnectionString( String host, String port, String driverClass, String dbName, String username, String password ){
