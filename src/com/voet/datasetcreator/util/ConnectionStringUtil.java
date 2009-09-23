@@ -1,8 +1,13 @@
 package com.voet.datasetcreator.util;
 
 import com.voet.datasetcreator.util.connection.ConnectionStringBuilder;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This is a utility class designed to help build connection strings for databases.
@@ -56,8 +61,51 @@ public final class ConnectionStringUtil {
      * @param password The password to connect
      * @return
      */
-    public static String getConnectionString( String host, String port, String driverClass, String dbName, String username, String password ){
+    public static String getConnectionString( String host, String port, String driverClass, String dbName, String schemaName, String username, String password ){
         ConnectionStringBuilder builder = ConnectionStringFactory.getBuilder( driverClass );
-        return builder.build(host, port, dbName, username, password);
+        return builder.build(host, port, dbName, schemaName, username, password);
+    }
+
+    /**
+     * Creates a database connection using the provided information and returns it for use.
+     * @param host The server host to connect to.
+     * @param port The port the database is listening on.
+     * @param driverClass The driver class to connect with.
+     * @param dbName The database name to conncect to.
+     * @param username The username to connect with.
+     * @param password The password to connect with.
+     * @return A database connection.
+     */
+    public static Connection getConnection( String host, String port, String driverClass, String dbName, String schemaName, String username, String password ){
+            ConnectionStringBuilder builder = ConnectionStringFactory.getBuilder( driverClass );
+            String connectionString = builder.build( host, port, dbName, schemaName,
+                    username, password );
+            return getConnection( driverClass, connectionString, username,
+                    password );
+    }
+
+    /**
+     * Creates a database connection using the provided information and returns it for use.
+     * @param driverClass The driver class to connect with.
+     * @param connectionString The connection string to use to connect to the database.
+     * @param username The username to connect with.
+     * @param password The password to connect with.
+     * @return A database connect.
+     */
+    public static Connection getConnection( String driverClass, String connectionString, String username, String password ){
+        try {
+            Class.forName( driverClass );
+            Connection con = DriverManager.getConnection( connectionString,
+                    username, password );
+            return con;
+        } catch ( SQLException ex ) {
+            Logger.getLogger( ConnectionStringUtil.class.getName() ).
+                    log( Level.SEVERE, null, ex );
+        } catch ( ClassNotFoundException ex ) {
+            Logger.getLogger( ConnectionStringUtil.class.getName() ).
+                    log( Level.SEVERE, null, ex );
+        }
+        return null;
+
     }
 }

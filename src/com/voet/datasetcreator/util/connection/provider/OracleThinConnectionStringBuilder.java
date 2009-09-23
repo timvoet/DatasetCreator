@@ -14,7 +14,7 @@ import com.voet.datasetcreator.util.connection.ConnectionStringBuilder;
 public class OracleThinConnectionStringBuilder implements ConnectionStringBuilder {
 
     @Override
-    public String build(String host, String port, String dbName, String username, String password) {
+    public String build(String host, String port, String dbName, String schemaName, String username, String password) {
         StringBuilder sb = new StringBuilder();
         sb.append("jdbc:oracle:thin:@" );
         sb.append( host );

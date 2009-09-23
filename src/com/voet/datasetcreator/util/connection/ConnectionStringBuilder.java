@@ -22,5 +22,5 @@ public interface ConnectionStringBuilder {
      * @param password
      * @return
      */
-    String build( String host, String port, String dbName, String username, String password );
+    String build( String host, String port, String dbName, String schemaName, String username, String password );
 }

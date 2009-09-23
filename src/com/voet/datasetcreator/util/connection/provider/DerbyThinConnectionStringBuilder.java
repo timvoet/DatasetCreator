@@ -14,14 +14,14 @@ import com.voet.datasetcreator.util.connection.ConnectionStringBuilder;
 public class DerbyThinConnectionStringBuilder implements ConnectionStringBuilder {
 
     @Override
-    public String build(String host, String port, String dbName, String username, String password) {
+    public String build(String host, String port, String dbName, String schemaName, String username, String password) {
         StringBuilder sb = new StringBuilder();
         sb.append( "jdbc:derby://");
         sb.append( host );
         sb.append( ":" );
         sb.append( port );
         sb.append( "/");
-        sb.append( dbName );
+        sb.append( schemaName );
         return sb.toString();
     }
 
