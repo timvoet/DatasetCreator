@@ -4,7 +4,9 @@
  */
 package com.voet.datasetcreator.data;
 
+import com.voet.datasetcreator.data.entities.ColumnMapper;
 import com.voet.datasetcreator.data.entities.SchemaMapper;
+import com.voet.datasetcreator.data.entities.TableMapper;
 import com.voet.datasetcreator.util.ConnectionStringUtil;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -19,16 +21,19 @@ import java.util.logging.Logger;
  */
 public class MetaDataAccessor {
 
-    public static SchemaMapper getTableNames( String driverClass, String connectionString, String dbName, String schemaName, String username, String password ) {
-        SchemaMapper mapper = new SchemaMapper( dbName );
+    public static SchemaMapper getTableNames( String driverClass,
+            String connectionString, String dbName, String schemaName,
+            String username, String password ) {
+        SchemaMapper mapper = new SchemaMapper( dbName, schemaName );
         Connection connection = null;
         try {
-            connection = getConnection( driverClass, connectionString, username, password );
+            connection = getConnection( driverClass, connectionString, username,
+                    password );
             DatabaseMetaData dmd = connection.getMetaData();
             ResultSet tbrs = dmd.getTables( schemaName, schemaName, null,
                     new String[]{ "TABLE" } );
-            while (tbrs.next()) {
-                mapper.add(tbrs.getString(3));
+            while ( tbrs.next() ) {
+                mapper.add( tbrs.getString( 3 ) );
             }
             tbrs.close();
         } catch ( SQLException ex ) {
@@ -45,7 +50,47 @@ public class MetaDataAccessor {
         return mapper;
     }
 
-    private static Connection getConnection( String driverClass, String connectionString, String username, String password ){
+    public static SchemaMapper getColumnInfo( SchemaMapper schema,
+            String driverClass, String connectionString, String dbName,
+            String schemaName, String username, String password ) {
+        
+        SchemaMapper mapper = new SchemaMapper( schema.getDbName(), schema.getSchemaName() );
+        Connection connection = null;
+        try {
+            connection = getConnection( driverClass, connectionString, username,
+                    password );
+            DatabaseMetaData dmd = connection.getMetaData();
+            for ( TableMapper tbl: schema.getTables() ){
+                TableMapper newTable = new TableMapper( tbl.getName() );
+                mapper.add( newTable );
+                ResultSet trs = dmd.getColumns(schema.getSchemaName(), schema.getSchemaName(), tbl.getName(), "%");
+                 while (trs.next()) {
+
+                    String colName = trs.getString("COLUMN_NAME");
+                    int type = trs.getInt("DATA_TYPE");
+                    int nullableInt = trs.getInt("NULLABLE");
+                    boolean nullable = ( nullableInt != 0 );
+                    ColumnMapper cMapper = new ColumnMapper( newTable.getName(), colName, !nullable,
+                            type );
+                    newTable.addColumn( cMapper );
+                 }
+            }
+        } catch ( SQLException ex ) {
+            Logger.getLogger( MetaDataAccessor.class.getName() ).
+                    log( Level.SEVERE, null, ex );
+        } finally {
+            try {
+                connection.close();
+            } catch ( SQLException ex ) {
+                Logger.getLogger( MetaDataAccessor.class.getName() ).
+                        log( Level.SEVERE, null, ex );
+            }
+        }
+        return mapper;
+    }
+
+    private static Connection getConnection( String driverClass,
+            String connectionString, String username, String password ) {
         return ConnectionStringUtil.getConnection( driverClass, connectionString,
                 username, password );
     }

@@ -6,6 +6,8 @@ package com.voet.datasetcreator;
 import com.voet.datasetcreator.data.MetaDataAccessor;
 import com.voet.datasetcreator.data.entities.SchemaMapper;
 import com.voet.datasetcreator.data.entities.TableMapper;
+import com.voet.datasetcreator.swing.MyCheckBoxRenderer;
+import com.voet.datasetcreator.swing.MyTableModel;
 import com.voet.datasetcreator.util.ConnectionStringUtil;
 import com.voet.datasetcreator.util.Tuple;
 import org.jdesktop.application.Action;
@@ -15,10 +17,13 @@ import org.jdesktop.application.FrameView;
 import org.jdesktop.application.TaskMonitor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.DefaultCellEditor;
 import javax.swing.Timer;
 import javax.swing.Icon;
+import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.table.TableColumn;
 
 /**
  * The application's main frame.
@@ -258,7 +263,7 @@ public class DatasetCreatorView extends FrameView {
                     .addGroup(pnlConnInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(txtPort, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(txtSchemaName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)))
-                .addGap(45, 45, 45))
+                .addGap(65, 65, 65))
         );
         pnlConnInfoLayout.setVerticalGroup(
             pnlConnInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -317,21 +322,21 @@ public class DatasetCreatorView extends FrameView {
         pnlTableNames.setLayout(pnlTableNamesLayout);
         pnlTableNamesLayout.setHorizontalGroup(
             pnlTableNamesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 311, Short.MAX_VALUE)
+            .addGap(0, 343, Short.MAX_VALUE)
             .addGroup(pnlTableNamesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pnlTableNamesLayout.createSequentialGroup()
-                    .addContainerGap(13, Short.MAX_VALUE)
-                    .addComponent(scrlPnlTableNames, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(14, Short.MAX_VALUE)))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTableNamesLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(scrlPnlTableNames, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         pnlTableNamesLayout.setVerticalGroup(
             pnlTableNamesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 296, Short.MAX_VALUE)
             .addGroup(pnlTableNamesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTableNamesLayout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlTableNamesLayout.createSequentialGroup()
+                    .addContainerGap()
                     .addComponent(scrlPnlTableNames, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addContainerGap()))
         );
 
         jPanel1.setName("jPanel1"); // NOI18N
@@ -380,11 +385,11 @@ public class DatasetCreatorView extends FrameView {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
                         .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, mainPanelLayout.createSequentialGroup()
-                                .addComponent(pnlTableNames, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addComponent(pnlTableNames, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(pnlConnInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(142, 142, 142))))
+                        .addGap(43, 43, 43))))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -397,9 +402,11 @@ public class DatasetCreatorView extends FrameView {
                 .addComponent(pnlConnInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnlTableNames, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addComponent(pnlTableNames, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(134, 134, 134))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0))
         );
 
         menuBar.setName("menuBar"); // NOI18N
@@ -473,7 +480,6 @@ public class DatasetCreatorView extends FrameView {
             pnlTableNames.setVisible( false );
         } else {
             pnlConnInfo.setVisible( true );
-            pnlTableNames.setVisible( true );
         }
 
     }//GEN-LAST:event_driverSelectionChanged
@@ -495,11 +501,18 @@ public class DatasetCreatorView extends FrameView {
         SchemaMapper schema = MetaDataAccessor.getTableNames( cboItem.getFirst(), connectionString,
                 txtDbName.getText(), txtSchemaName.getText(), txtUsername.getText(), txtPassword.getText() );
 
+        MyTableModel model = new MyTableModel();
         for ( TableMapper tbl: schema.getTables() ){
-            System.out.println("Table:" + tbl.getName() );
+            model.add( new Tuple(Boolean.FALSE, tbl.getName() ) );
 
         }
+        tblTableNames.setModel( model );
 
+        TableColumn selectedColumn = tblTableNames.getColumnModel().getColumn( 0 );
+        selectedColumn.setCellEditor( new DefaultCellEditor( new JCheckBox() ));
+        selectedColumn.setCellRenderer( new MyCheckBoxRenderer() );
+        selectedColumn.setPreferredWidth( 20 );
+        tblTableNames.doLayout();
         pnlTableNames.setVisible( true );
         pnlOptions.setVisible( true );
 
