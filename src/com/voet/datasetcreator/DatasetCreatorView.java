@@ -28,7 +28,8 @@ public class DatasetCreatorView extends FrameView {
         initComponents();
         // hide the panels upon initial load
         pnlConnInfo.setVisible( false );
-        scrlPnlTableNames.setVisible( false );
+        pnlTableNames.setVisible( false );
+//        scrlPnlTableNames.setVisible( false );
 
         // status bar initialization - message timeout, idle icon and busy animation, etc
         ResourceMap resourceMap = getResourceMap();
@@ -125,8 +126,10 @@ public class DatasetCreatorView extends FrameView {
         jLabel7 = new javax.swing.JLabel();
         txtConnString = new javax.swing.JTextField();
         btnConnString = new javax.swing.JButton();
+        pnlTableNames = new javax.swing.JPanel();
         scrlPnlTableNames = new javax.swing.JScrollPane();
         tblTableNames = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
@@ -270,6 +273,9 @@ public class DatasetCreatorView extends FrameView {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
+        pnlTableNames.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pnlTableNames.setName("pnlTableNames"); // NOI18N
+
         scrlPnlTableNames.setName("scrlPnlTableNames"); // NOI18N
 
         tblTableNames.setModel(new javax.swing.table.DefaultTableModel(
@@ -286,6 +292,40 @@ public class DatasetCreatorView extends FrameView {
         tblTableNames.setName("tblTableNames"); // NOI18N
         scrlPnlTableNames.setViewportView(tblTableNames);
 
+        javax.swing.GroupLayout pnlTableNamesLayout = new javax.swing.GroupLayout(pnlTableNames);
+        pnlTableNames.setLayout(pnlTableNamesLayout);
+        pnlTableNamesLayout.setHorizontalGroup(
+            pnlTableNamesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 296, Short.MAX_VALUE)
+            .addGroup(pnlTableNamesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlTableNamesLayout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(scrlPnlTableNames, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        pnlTableNamesLayout.setVerticalGroup(
+            pnlTableNamesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 445, Short.MAX_VALUE)
+            .addGroup(pnlTableNamesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTableNamesLayout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(scrlPnlTableNames, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+
+        jPanel1.setName("jPanel1"); // NOI18N
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 240, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 430, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
@@ -294,15 +334,17 @@ public class DatasetCreatorView extends FrameView {
                 .addContainerGap()
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(scrlPnlTableNames, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(mainPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(cboDrivers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(432, Short.MAX_VALUE))
-                    .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addComponent(pnlConnInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(cboDrivers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(569, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
+                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, mainPanelLayout.createSequentialGroup()
+                                .addComponent(pnlTableNames, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(pnlConnInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(142, 142, 142))))
         );
         mainPanelLayout.setVerticalGroup(
@@ -315,8 +357,10 @@ public class DatasetCreatorView extends FrameView {
                 .addGap(1, 1, 1)
                 .addComponent(pnlConnInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrlPnlTableNames, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlTableNames, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         menuBar.setName("menuBar"); // NOI18N
@@ -394,8 +438,8 @@ public class DatasetCreatorView extends FrameView {
     }//GEN-LAST:event_driverSelectionChanged
 
     private void btnListTableNames(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListTableNames
-
-        scrlPnlTableNames.setVisible( true );
+        pnlTableNames.setVisible( true );
+//        scrlPnlTableNames.setVisible( true );
     }//GEN-LAST:event_btnListTableNames
 
     private void buildConnectionStringHandler(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buildConnectionStringHandler
@@ -414,9 +458,11 @@ public class DatasetCreatorView extends FrameView {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JPanel pnlConnInfo;
+    private javax.swing.JPanel pnlTableNames;
     private javax.swing.JProgressBar progressBar;
     private javax.swing.JScrollPane scrlPnlTableNames;
     private javax.swing.JLabel statusAnimationLabel;
