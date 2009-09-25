@@ -21,7 +21,7 @@ public class DerbyThinConnectionStringBuilder implements ConnectionStringBuilder
         sb.append( ":" );
         sb.append( port );
         sb.append( "/");
-        sb.append( schemaName );
+        sb.append( dbName );
         return sb.toString();
     }
 

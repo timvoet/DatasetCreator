@@ -61,7 +61,7 @@ public class MyTableModel extends AbstractTableModel {
         }
 
     }
-
+    @Override
     public void setValueAt(Object value, int row, int col) {
         Tuple<Boolean, String> rowData = this.table.get( row );
         rowData.setFirst( (Boolean)value );
@@ -72,4 +72,13 @@ public class MyTableModel extends AbstractTableModel {
         this.table.add( row );
     }
 
+    public List<Tuple<Boolean,String>> getCheckedRows(){
+        List<Tuple<Boolean,String>> rows = new ArrayList<Tuple<Boolean, String>>();
+        for ( Tuple<Boolean,String> row : this.table){
+            if ( row.getFirst().booleanValue() ){
+                rows.add( row );
+            }
+        }
+        return rows;
+    }
 }

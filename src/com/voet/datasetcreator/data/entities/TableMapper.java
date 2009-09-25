@@ -77,6 +77,8 @@ public class TableMapper {
         column.setTableName( this.getName() );
         this.columns.add( column );
     }
-
+    public List<ColumnMapper> getColumms(){
+        return this.columns;
+    }
 
 }
