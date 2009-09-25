@@ -145,12 +145,14 @@ public class DatasetCreatorView extends FrameView {
         tblTableNames = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         pnlOptions = new javax.swing.JPanel();
-        jCheckBox1 = new javax.swing.JCheckBox();
         jLabel9 = new javax.swing.JLabel();
         chkGenDefaults = new javax.swing.JCheckBox();
         jLabel10 = new javax.swing.JLabel();
         txtNumRows = new javax.swing.JTextField();
         btnBuildDatasets = new javax.swing.JButton();
+        rdoAll = new javax.swing.JRadioButton();
+        rdoReq = new javax.swing.JRadioButton();
+        rdoNone = new javax.swing.JRadioButton();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
@@ -161,6 +163,7 @@ public class DatasetCreatorView extends FrameView {
         statusMessageLabel = new javax.swing.JLabel();
         statusAnimationLabel = new javax.swing.JLabel();
         progressBar = new javax.swing.JProgressBar();
+        btnGrpFieldOptions = new javax.swing.ButtonGroup();
 
         mainPanel.setName("mainPanel"); // NOI18N
         mainPanel.setPreferredSize(new java.awt.Dimension(570, 400));
@@ -330,11 +333,11 @@ public class DatasetCreatorView extends FrameView {
         pnlTableNames.setLayout(pnlTableNamesLayout);
         pnlTableNamesLayout.setHorizontalGroup(
             pnlTableNamesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 325, Short.MAX_VALUE)
+            .addGap(0, 321, Short.MAX_VALUE)
             .addGroup(pnlTableNamesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnlTableNamesLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(scrlPnlTableNames, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
+                    .addComponent(scrlPnlTableNames, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         pnlTableNamesLayout.setVerticalGroup(
@@ -353,7 +356,7 @@ public class DatasetCreatorView extends FrameView {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 15, Short.MAX_VALUE)
+            .addGap(0, 14, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -362,9 +365,6 @@ public class DatasetCreatorView extends FrameView {
 
         pnlOptions.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         pnlOptions.setName("pnlOptions"); // NOI18N
-
-        jCheckBox1.setText(resourceMap.getString("chkReqFields.text")); // NOI18N
-        jCheckBox1.setName("chkReqFields"); // NOI18N
 
         jLabel9.setText(resourceMap.getString("lblOptions.text")); // NOI18N
         jLabel9.setName("lblOptions"); // NOI18N
@@ -392,6 +392,19 @@ public class DatasetCreatorView extends FrameView {
             }
         });
 
+        btnGrpFieldOptions.add(rdoAll);
+        rdoAll.setSelected(true);
+        rdoAll.setText(resourceMap.getString("rdoAll.text")); // NOI18N
+        rdoAll.setName("rdoAll"); // NOI18N
+
+        btnGrpFieldOptions.add(rdoReq);
+        rdoReq.setText(resourceMap.getString("rdoReq.text")); // NOI18N
+        rdoReq.setName("rdoReq"); // NOI18N
+
+        btnGrpFieldOptions.add(rdoNone);
+        rdoNone.setText(resourceMap.getString("rdoNone.text")); // NOI18N
+        rdoNone.setName("rdoNone"); // NOI18N
+
         javax.swing.GroupLayout pnlOptionsLayout = new javax.swing.GroupLayout(pnlOptions);
         pnlOptions.setLayout(pnlOptionsLayout);
         pnlOptionsLayout.setHorizontalGroup(
@@ -401,27 +414,36 @@ public class DatasetCreatorView extends FrameView {
                 .addGroup(pnlOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlOptionsLayout.createSequentialGroup()
                         .addGroup(pnlOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox1)
                             .addComponent(jLabel9)
                             .addGroup(pnlOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(chkGenDefaults)
                                 .addGroup(pnlOptionsLayout.createSequentialGroup()
                                     .addComponent(jLabel10)
                                     .addGap(18, 18, 18)
-                                    .addComponent(txtNumRows, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))))
+                                    .addComponent(txtNumRows, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE))))
                         .addContainerGap(200, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlOptionsLayout.createSequentialGroup()
                         .addComponent(btnBuildDatasets)
-                        .addContainerGap(247, Short.MAX_VALUE))))
+                        .addContainerGap(248, Short.MAX_VALUE))
+                    .addGroup(pnlOptionsLayout.createSequentialGroup()
+                        .addComponent(rdoAll)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rdoReq)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rdoNone)
+                        .addContainerGap())))
         );
         pnlOptionsLayout.setVerticalGroup(
             pnlOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlOptionsLayout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(jLabel9)
-                .addGap(18, 18, 18)
-                .addComponent(jCheckBox1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rdoAll)
+                    .addComponent(rdoNone)
+                    .addComponent(rdoReq))
+                .addGap(18, 18, 18)
                 .addComponent(chkGenDefaults)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -429,8 +451,10 @@ public class DatasetCreatorView extends FrameView {
                     .addComponent(txtNumRows, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(41, 41, 41)
                 .addComponent(btnBuildDatasets)
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addContainerGap(116, Short.MAX_VALUE))
         );
+
+        rdoReq.getAccessibleContext().setAccessibleName(resourceMap.getString("jRadioButton2.AccessibleContext.accessibleName")); // NOI18N
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
@@ -444,7 +468,7 @@ public class DatasetCreatorView extends FrameView {
                         .addGap(18, 18, 18)
                         .addComponent(cboDrivers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                        .addComponent(pnlTableNames, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
+                        .addComponent(pnlTableNames, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -515,7 +539,7 @@ public class DatasetCreatorView extends FrameView {
             .addGroup(statusPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(statusMessageLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 566, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 564, Short.MAX_VALUE)
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(statusAnimationLabel)
@@ -622,9 +646,9 @@ public class DatasetCreatorView extends FrameView {
     private javax.swing.JButton btnBuildDatasets;
     private javax.swing.JButton btnConnString;
     private javax.swing.JButton btnGetTableList;
+    private javax.swing.ButtonGroup btnGrpFieldOptions;
     private javax.swing.JComboBox cboDrivers;
     private javax.swing.JCheckBox chkGenDefaults;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -642,6 +666,9 @@ public class DatasetCreatorView extends FrameView {
     private javax.swing.JPanel pnlOptions;
     private javax.swing.JPanel pnlTableNames;
     private javax.swing.JProgressBar progressBar;
+    private javax.swing.JRadioButton rdoAll;
+    private javax.swing.JRadioButton rdoNone;
+    private javax.swing.JRadioButton rdoReq;
     private javax.swing.JScrollPane scrlPnlTableNames;
     private javax.swing.JLabel statusAnimationLabel;
     private javax.swing.JLabel statusMessageLabel;
