@@ -12,6 +12,7 @@ import com.voet.datasetcreator.swing.MyNumericInputVerifier;
 import com.voet.datasetcreator.swing.MyTableModel;
 import com.voet.datasetcreator.util.ConnectionStringUtil;
 import com.voet.datasetcreator.util.Tuple;
+import javax.swing.ButtonModel;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.ResourceMap;
 import org.jdesktop.application.SingleFrameApplication;
@@ -26,6 +27,7 @@ import javax.swing.Icon;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JToggleButton.ToggleButtonModel;
 import javax.swing.table.TableColumn;
 
 /**
@@ -153,6 +155,8 @@ public class DatasetCreatorView extends FrameView {
         rdoAll = new javax.swing.JRadioButton();
         rdoReq = new javax.swing.JRadioButton();
         rdoNone = new javax.swing.JRadioButton();
+        txtFileLocation = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
@@ -259,10 +263,10 @@ public class DatasetCreatorView extends FrameView {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlConnInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtHost, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtConnString, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
-                            .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
-                            .addComponent(txtDbName, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
-                            .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE))))
+                            .addComponent(txtConnString, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
+                            .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
+                            .addComponent(txtDbName, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
+                            .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE))))
                 .addGap(18, 18, 18)
                 .addGroup(pnlConnInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
@@ -306,7 +310,7 @@ public class DatasetCreatorView extends FrameView {
                     .addComponent(jLabel7)
                     .addComponent(btnGetTableList)
                     .addComponent(txtConnString, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pnlTableNames.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -333,20 +337,20 @@ public class DatasetCreatorView extends FrameView {
         pnlTableNames.setLayout(pnlTableNamesLayout);
         pnlTableNamesLayout.setHorizontalGroup(
             pnlTableNamesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 321, Short.MAX_VALUE)
+            .addGap(0, 320, Short.MAX_VALUE)
             .addGroup(pnlTableNamesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnlTableNamesLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(scrlPnlTableNames, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
+                    .addComponent(scrlPnlTableNames, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         pnlTableNamesLayout.setVerticalGroup(
             pnlTableNamesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 318, Short.MAX_VALUE)
+            .addGap(0, 339, Short.MAX_VALUE)
             .addGroup(pnlTableNamesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnlTableNamesLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(scrlPnlTableNames, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
+                    .addComponent(scrlPnlTableNames, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
                     .addContainerGap()))
         );
 
@@ -356,7 +360,7 @@ public class DatasetCreatorView extends FrameView {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 14, Short.MAX_VALUE)
+            .addGap(0, 16, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -395,15 +399,24 @@ public class DatasetCreatorView extends FrameView {
         btnGrpFieldOptions.add(rdoAll);
         rdoAll.setSelected(true);
         rdoAll.setText(resourceMap.getString("rdoAll.text")); // NOI18N
+        rdoAll.setActionCommand(resourceMap.getString("rdoAll.actionCommand")); // NOI18N
         rdoAll.setName("rdoAll"); // NOI18N
 
         btnGrpFieldOptions.add(rdoReq);
         rdoReq.setText(resourceMap.getString("rdoReq.text")); // NOI18N
+        rdoReq.setActionCommand(resourceMap.getString("rdoReq.actionCommand")); // NOI18N
         rdoReq.setName("rdoReq"); // NOI18N
 
         btnGrpFieldOptions.add(rdoNone);
         rdoNone.setText(resourceMap.getString("rdoNone.text")); // NOI18N
+        rdoNone.setActionCommand(resourceMap.getString("rdoNone.actionCommand")); // NOI18N
         rdoNone.setName("rdoNone"); // NOI18N
+
+        txtFileLocation.setText(resourceMap.getString("txtFileLocation.text")); // NOI18N
+        txtFileLocation.setName("txtFileLocation"); // NOI18N
+
+        jLabel11.setText(resourceMap.getString("jLabel11.text")); // NOI18N
+        jLabel11.setName("jLabel11"); // NOI18N
 
         javax.swing.GroupLayout pnlOptionsLayout = new javax.swing.GroupLayout(pnlOptions);
         pnlOptions.setLayout(pnlOptionsLayout);
@@ -420,18 +433,24 @@ public class DatasetCreatorView extends FrameView {
                                 .addGroup(pnlOptionsLayout.createSequentialGroup()
                                     .addComponent(jLabel10)
                                     .addGap(18, 18, 18)
-                                    .addComponent(txtNumRows, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE))))
+                                    .addComponent(txtNumRows, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE))))
                         .addContainerGap(200, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlOptionsLayout.createSequentialGroup()
                         .addComponent(btnBuildDatasets)
-                        .addContainerGap(248, Short.MAX_VALUE))
+                        .addContainerGap(261, Short.MAX_VALUE))
                     .addGroup(pnlOptionsLayout.createSequentialGroup()
                         .addComponent(rdoAll)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(rdoReq)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rdoNone)
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(pnlOptionsLayout.createSequentialGroup()
+                        .addComponent(txtFileLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(pnlOptionsLayout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addContainerGap(309, Short.MAX_VALUE))))
         );
         pnlOptionsLayout.setVerticalGroup(
             pnlOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -449,9 +468,13 @@ public class DatasetCreatorView extends FrameView {
                 .addGroup(pnlOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(txtNumRows, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel11)
+                .addGap(6, 6, 6)
+                .addComponent(txtFileLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnBuildDatasets)
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
 
         rdoReq.getAccessibleContext().setAccessibleName(resourceMap.getString("jRadioButton2.AccessibleContext.accessibleName")); // NOI18N
@@ -468,7 +491,7 @@ public class DatasetCreatorView extends FrameView {
                         .addGap(18, 18, 18)
                         .addComponent(cboDrivers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                        .addComponent(pnlTableNames, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
+                        .addComponent(pnlTableNames, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -494,7 +517,7 @@ public class DatasetCreatorView extends FrameView {
                         .addComponent(pnlOptions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(135, 135, 135))
                     .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addComponent(pnlTableNames, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+                        .addComponent(pnlTableNames, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
                         .addGap(135, 135, 135)))
                 .addGap(0, 0, 0))
         );
@@ -539,7 +562,7 @@ public class DatasetCreatorView extends FrameView {
             .addGroup(statusPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(statusMessageLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 564, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 578, Short.MAX_VALUE)
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(statusAnimationLabel)
@@ -618,6 +641,10 @@ public class DatasetCreatorView extends FrameView {
 
     private void btnBuildDatasetsHandler(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuildDatasetsHandler
         SchemaMapper schema = new SchemaMapper( txtDbName.getText(), txtSchemaName.getText() );
+        ButtonModel selection =  (ToggleButtonModel) btnGrpFieldOptions.getSelection();
+        System.out.println( "selectionModel:" + selection.getActionCommand() );
+
+
         MyTableModel model = (MyTableModel) tblTableNames.getModel();
         List<Tuple<Boolean, String>> rows = model.getCheckedRows();
         for ( Tuple<Boolean, String> row : rows ) {
@@ -651,6 +678,7 @@ public class DatasetCreatorView extends FrameView {
     private javax.swing.JCheckBox chkGenDefaults;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -676,6 +704,7 @@ public class DatasetCreatorView extends FrameView {
     private javax.swing.JTable tblTableNames;
     private javax.swing.JTextField txtConnString;
     private javax.swing.JTextField txtDbName;
+    private javax.swing.JTextField txtFileLocation;
     private javax.swing.JTextField txtHost;
     private javax.swing.JTextField txtNumRows;
     private javax.swing.JTextField txtPassword;

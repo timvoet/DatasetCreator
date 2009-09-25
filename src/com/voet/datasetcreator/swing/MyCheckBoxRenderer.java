@@ -26,9 +26,6 @@ public class MyCheckBoxRenderer extends JCheckBox
     public Component getTableCellRendererComponent( JTable table, Object value,
             boolean isSelected, boolean hasFocus,
             int row, int column ) {
-        System.out.println(
-                "Selected: " + isSelected + " Row: " + row + " Value: " + value );
-
         if ( isSelected ) {
             //setSelected(true);
             setForeground( table.getSelectionForeground() );

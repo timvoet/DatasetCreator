@@ -22,7 +22,7 @@
                           <Component id="cboDrivers" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="pnlTableNames" pref="325" max="32767" attributes="0"/>
+                          <Component id="pnlTableNames" pref="324" max="32767" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="jPanel1" max="32767" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -55,7 +55,7 @@
                           <EmptySpace min="135" pref="135" max="135" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="pnlTableNames" pref="322" max="32767" attributes="0"/>
+                          <Component id="pnlTableNames" pref="343" max="32767" attributes="0"/>
                           <EmptySpace min="135" pref="135" max="135" attributes="0"/>
                       </Group>
                   </Group>
@@ -110,10 +110,10 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="txtHost" alignment="0" min="-2" pref="216" max="-2" attributes="1"/>
-                                  <Component id="txtConnString" pref="216" max="32767" attributes="0"/>
-                                  <Component id="txtUsername" pref="216" max="32767" attributes="0"/>
-                                  <Component id="txtDbName" alignment="0" pref="216" max="32767" attributes="1"/>
-                                  <Component id="txtPassword" alignment="0" pref="216" max="32767" attributes="0"/>
+                                  <Component id="txtConnString" pref="321" max="32767" attributes="0"/>
+                                  <Component id="txtUsername" pref="321" max="32767" attributes="0"/>
+                                  <Component id="txtDbName" alignment="0" pref="321" max="32767" attributes="1"/>
+                                  <Component id="txtPassword" alignment="0" pref="321" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -172,7 +172,7 @@
                           <Component id="btnGetTableList" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtConnString" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="32" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -298,11 +298,11 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="321" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="320" max="32767" attributes="0"/>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="scrlPnlTableNames" pref="297" max="32767" attributes="0"/>
+                          <Component id="scrlPnlTableNames" pref="300" max="32767" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -310,11 +310,11 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="318" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="339" max="32767" attributes="0"/>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="scrlPnlTableNames" pref="294" max="32767" attributes="0"/>
+                          <Component id="scrlPnlTableNames" pref="317" max="32767" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -352,7 +352,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="14" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="16" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -386,7 +386,7 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="txtNumRows" pref="38" max="32767" attributes="0"/>
+                                          <Component id="txtNumRows" pref="68" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -394,7 +394,7 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="btnBuildDatasets" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="248" max="32767" attributes="0"/>
+                              <EmptySpace pref="261" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="rdoAll" min="-2" max="-2" attributes="0"/>
@@ -403,6 +403,14 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="rdoNone" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="txtFileLocation" min="-2" pref="319" max="-2" attributes="1"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="309" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -426,9 +434,13 @@
                           <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtNumRows" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                      <Component id="txtFileLocation" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnBuildDatasets" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="116" max="32767" attributes="0"/>
+                      <EmptySpace pref="134" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -480,6 +492,7 @@
                 </Property>
                 <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" resourceKey="rdoAll.text"/>
+                <Property name="actionCommand" type="java.lang.String" resourceKey="rdoAll.actionCommand"/>
                 <Property name="name" type="java.lang.String" value="rdoAll" noResource="true"/>
               </Properties>
             </Component>
@@ -489,6 +502,7 @@
                   <ComponentRef name="btnGrpFieldOptions"/>
                 </Property>
                 <Property name="text" type="java.lang.String" resourceKey="rdoReq.text"/>
+                <Property name="actionCommand" type="java.lang.String" resourceKey="rdoReq.actionCommand"/>
                 <Property name="name" type="java.lang.String" value="rdoReq" noResource="true"/>
               </Properties>
               <AccessibilityProperties>
@@ -501,7 +515,20 @@
                   <ComponentRef name="btnGrpFieldOptions"/>
                 </Property>
                 <Property name="text" type="java.lang.String" resourceKey="rdoNone.text"/>
+                <Property name="actionCommand" type="java.lang.String" resourceKey="rdoNone.actionCommand"/>
                 <Property name="name" type="java.lang.String" value="rdoNone" noResource="true"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txtFileLocation">
+              <Properties>
+                <Property name="text" type="java.lang.String" resourceKey="txtFileLocation.text"/>
+                <Property name="name" type="java.lang.String" value="txtFileLocation" noResource="true"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel11">
+              <Properties>
+                <Property name="text" type="java.lang.String" resourceKey="jLabel11.text"/>
+                <Property name="name" type="java.lang.String" value="jLabel11" noResource="true"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -579,7 +606,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="statusMessageLabel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="564" max="32767" attributes="0"/>
+                  <EmptySpace pref="578" max="32767" attributes="0"/>
                   <Component id="progressBar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="statusAnimationLabel" min="-2" max="-2" attributes="0"/>
