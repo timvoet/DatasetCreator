@@ -4,9 +4,9 @@
 package com.voet.datasetcreator;
 
 import com.voet.datasetcreator.data.MetaDataAccessor;
-import com.voet.datasetcreator.data.entities.ColumnMapper;
 import com.voet.datasetcreator.data.entities.SchemaMapper;
 import com.voet.datasetcreator.data.entities.TableMapper;
+import com.voet.datasetcreator.io.DatasetWriter;
 import com.voet.datasetcreator.swing.MyCheckBoxRenderer;
 import com.voet.datasetcreator.swing.MyNumericInputVerifier;
 import com.voet.datasetcreator.swing.MyTableModel;
@@ -20,6 +20,7 @@ import org.jdesktop.application.FrameView;
 import org.jdesktop.application.TaskMonitor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.List;
 import javax.swing.DefaultCellEditor;
 import javax.swing.Timer;
@@ -27,6 +28,7 @@ import javax.swing.Icon;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JToggleButton.ToggleButtonModel;
 import javax.swing.table.TableColumn;
 
@@ -659,14 +661,12 @@ public class DatasetCreatorView extends FrameView {
         } else {
             connectionString = generatedConnString;
         }
-        SchemaMapper columnInfo = MetaDataAccessor.getColumnInfo( schema, cboItem.getFirst(), connectionString, schema.getDbName(), schema.getSchemaName(), txtUsername.getText(), txtPassword.getText() );
+        schema = MetaDataAccessor.getColumnInfo( schema, cboItem.getFirst(), connectionString, schema.getDbName(), schema.getSchemaName(), txtUsername.getText(), txtPassword.getText() );
 
-        for ( TableMapper tbl : columnInfo.getTables() ){
-            System.out.println( "Table:" + tbl.getName() );
-            for ( ColumnMapper column: tbl.getColumms()){
-                System.out.println( "\tColumn:" + column.getColumnName() );
-            }
-        }
+        DatasetWriter writer = new DatasetWriter( schema );
+        File outFile = new File(txtFileLocation.getText());
+        writer.writeDataset( outFile, selection.getActionCommand(), Integer.parseInt(txtNumRows.getText()), chkGenDefaults.isSelected() );
+        JOptionPane.showMessageDialog( pnlConnInfo, "File written successfully", "Dataset Status", JOptionPane.INFORMATION_MESSAGE );
 
     }//GEN-LAST:event_btnBuildDatasetsHandler
     // Variables declaration - do not modify//GEN-BEGIN:variables
