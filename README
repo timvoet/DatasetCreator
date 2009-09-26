@@ -1,0 +1,7 @@
+This project is intended to ease the creation of DBUnit tests.
+
+For now it only runs out of a netbeans project, but it will eventually be launchable by WebStart, and a stand alone app that can bootstrap itself to load differnt drivers on the fly.
+
+contributions are welcome.
+
+
