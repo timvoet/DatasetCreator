@@ -93,8 +93,10 @@ public class DatasetWriter {
         switch ( type ) {
             case Types.VARCHAR: return "";
             case Types.INTEGER: return String.valueOf( 1 );
+            case Types.DECIMAL: return String.valueOf( 1 );
+            case Types.NUMERIC: return String.valueOf( 1 );
             case Types.DATE: return DATE_FORMAT.format( new Date() );
-            default: return "";
+            default: return type.toString();
         }
     }
 }
