@@ -6,6 +6,7 @@ package com.voet.datasetcreator.util;
 
 import com.voet.datasetcreator.util.connection.ConnectionStringBuilder;
 import com.voet.datasetcreator.util.connection.provider.DerbyThinConnectionStringBuilder;
+import com.voet.datasetcreator.util.connection.provider.MySqlThinConnectionStringBuilder;
 import com.voet.datasetcreator.util.connection.provider.OracleThinConnectionStringBuilder;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,6 +25,7 @@ public class ConnectionStringFactory {
         impls.put( "oracle.jdbc.driver.OracleDriver", OracleThinConnectionStringBuilder.class.getName() );
         impls.put( "org.apache.derby.jdbc.ClientDriver", DerbyThinConnectionStringBuilder.class.getName() );
         impls.put( "org.apache.derby.jdbc.EmbeddedDriver", DerbyThinConnectionStringBuilder.class.getName() );
+        impls.put( "com.mysql.jdbc.Driver", MySqlThinConnectionStringBuilder.class.getName() );
     }
 
     public static ConnectionStringBuilder getBuilder( String driverClass ) {

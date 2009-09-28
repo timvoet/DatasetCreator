@@ -21,6 +21,16 @@ import java.util.logging.Logger;
  */
 public class MetaDataAccessor {
 
+    /**
+     * Returns the Table information for the desired schema.
+     * @param driverClass The driver class used to connect
+     * @param connectionString The connection string to connect with
+     * @param dbName The database name to connect to.  Some Database engines don't use this.
+     * @param schemaName The schema to connect to.  Some database engines automatically connect you based on username.
+     * @param username The username to connect with
+     * @param password The password to connect with
+     * @return SchemaMapper containing all the tables that are available in the specified schema/dbname combination.
+     */
     public static SchemaMapper getTableNames( String driverClass,
             String connectionString, String dbName, String schemaName,
             String username, String password ) {
@@ -50,6 +60,17 @@ public class MetaDataAccessor {
         return mapper;
     }
 
+    /**
+     * Returns the column information for the selected tables from the desired schema.
+     * @param schema The Schema mapper class
+     * @param driverClass The driver class used to connect
+     * @param connectionString The connection string to connect with
+     * @param dbName The database name to connect to.  Some Database engines don't use this.
+     * @param schemaName The schema to connect to.  Some database engines automatically connect you based on username.
+     * @param username The username to connect with
+     * @param password The password to connect with
+     * @return SchemaMapper the meta data information from the DB including the tables and columns selected.
+     */
     public static SchemaMapper getColumnInfo( SchemaMapper schema,
             String driverClass, String connectionString, String dbName,
             String schemaName, String username, String password ) {
