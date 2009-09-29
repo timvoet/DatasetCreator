@@ -26,6 +26,7 @@ public class ConnectionStringFactory {
         impls.put( "org.apache.derby.jdbc.ClientDriver", DerbyThinConnectionStringBuilder.class.getName() );
         impls.put( "org.apache.derby.jdbc.EmbeddedDriver", DerbyThinConnectionStringBuilder.class.getName() );
         impls.put( "com.mysql.jdbc.Driver", MySqlThinConnectionStringBuilder.class.getName() );
+        impls.put( "org.hsqldb.jdbc.jdbcConnection", HSQLDBConnectionStringBuilder.class.getName() );
     }
 
     public static ConnectionStringBuilder getBuilder( String driverClass ) {

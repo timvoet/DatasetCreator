@@ -5,6 +5,7 @@
 package com.voet.datasetcreator.swing;
 
 import java.awt.Component;
+import java.awt.event.MouseEvent;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -26,6 +27,7 @@ public class MyCheckBoxRenderer extends JCheckBox
     public Component getTableCellRendererComponent( JTable table, Object value,
             boolean isSelected, boolean hasFocus,
             int row, int column ) {
+        setHorizontalAlignment( JLabel.CENTER );
         if ( isSelected ) {
             //setSelected(true);
             setForeground( table.getSelectionForeground() );
@@ -40,4 +42,12 @@ public class MyCheckBoxRenderer extends JCheckBox
         setSelected( ( (Boolean) value ).booleanValue() );
         return this;
     }
+
+    @Override
+    protected void processMouseEvent( MouseEvent e ) {
+        setHorizontalAlignment( JLabel.CENTER );
+        super.processMouseEvent( e );
+    }
+
+
 }

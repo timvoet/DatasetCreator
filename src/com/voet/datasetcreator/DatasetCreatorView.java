@@ -28,6 +28,7 @@ import javax.swing.Icon;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JToggleButton.ToggleButtonModel;
 import javax.swing.table.TableColumn;
@@ -321,6 +322,7 @@ public class DatasetCreatorView extends FrameView {
 
         scrlPnlTableNames.setName("scrlPnlTableNames"); // NOI18N
 
+        tblTableNames.setAutoCreateRowSorter(true);
         tblTableNames.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -332,6 +334,7 @@ public class DatasetCreatorView extends FrameView {
                 "Title 1", "Title 2"
             }
         ));
+        tblTableNames.setFillsViewportHeight(true);
         tblTableNames.setName("tblTableNames"); // NOI18N
         scrlPnlTableNames.setViewportView(tblTableNames);
 
@@ -339,11 +342,11 @@ public class DatasetCreatorView extends FrameView {
         pnlTableNames.setLayout(pnlTableNamesLayout);
         pnlTableNamesLayout.setHorizontalGroup(
             pnlTableNamesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 320, Short.MAX_VALUE)
+            .addGap(0, 312, Short.MAX_VALUE)
             .addGroup(pnlTableNamesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnlTableNamesLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(scrlPnlTableNames, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addComponent(scrlPnlTableNames, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         pnlTableNamesLayout.setVerticalGroup(
@@ -362,7 +365,7 @@ public class DatasetCreatorView extends FrameView {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 16, Short.MAX_VALUE)
+            .addGap(0, 10, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -435,11 +438,11 @@ public class DatasetCreatorView extends FrameView {
                                 .addGroup(pnlOptionsLayout.createSequentialGroup()
                                     .addComponent(jLabel10)
                                     .addGap(18, 18, 18)
-                                    .addComponent(txtNumRows, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE))))
-                        .addContainerGap(200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtNumRows, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE))))
+                        .addContainerGap(195, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlOptionsLayout.createSequentialGroup()
                         .addComponent(btnBuildDatasets)
-                        .addContainerGap(261, Short.MAX_VALUE))
+                        .addContainerGap(275, Short.MAX_VALUE))
                     .addGroup(pnlOptionsLayout.createSequentialGroup()
                         .addComponent(rdoAll)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -452,7 +455,7 @@ public class DatasetCreatorView extends FrameView {
                         .addContainerGap())
                     .addGroup(pnlOptionsLayout.createSequentialGroup()
                         .addComponent(jLabel11)
-                        .addContainerGap(309, Short.MAX_VALUE))))
+                        .addContainerGap(323, Short.MAX_VALUE))))
         );
         pnlOptionsLayout.setVerticalGroup(
             pnlOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -493,7 +496,7 @@ public class DatasetCreatorView extends FrameView {
                         .addGap(18, 18, 18)
                         .addComponent(cboDrivers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                        .addComponent(pnlTableNames, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
+                        .addComponent(pnlTableNames, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -620,9 +623,11 @@ public class DatasetCreatorView extends FrameView {
         tblTableNames.setModel( model );
 
         TableColumn selectedColumn = tblTableNames.getColumnModel().getColumn( 0 );
-        selectedColumn.setCellEditor( new DefaultCellEditor( new JCheckBox() ) );
+        JCheckBox chk = new JCheckBox();
+        chk.setHorizontalAlignment( JLabel.CENTER );
+        selectedColumn.setCellEditor( new DefaultCellEditor( chk ) );
         selectedColumn.setCellRenderer( new MyCheckBoxRenderer() );
-        selectedColumn.setPreferredWidth( 20 );
+        selectedColumn.setPreferredWidth( 15 );
         tblTableNames.doLayout();
         pnlTableNames.setVisible( true );
         pnlOptions.setVisible( true );
@@ -664,7 +669,13 @@ public class DatasetCreatorView extends FrameView {
         schema = MetaDataAccessor.getColumnInfo( schema, cboItem.getFirst(), connectionString, schema.getDbName(), schema.getSchemaName(), txtUsername.getText(), txtPassword.getText() );
 
         DatasetWriter writer = new DatasetWriter( schema );
-        File outFile = new File(txtFileLocation.getText());
+        String fileName = txtFileLocation.getText();
+        File outFile = null;
+        if ( fileName.indexOf( System.getProperty( "path.separator" ) ) > 0 ){
+            outFile = new File( fileName );
+        } else {
+            outFile = new File( System.getProperty( "user.home" ), fileName );
+        }
         writer.writeDataset( outFile, selection.getActionCommand(), Integer.parseInt(txtNumRows.getText()), chkGenDefaults.isSelected() );
         JOptionPane.showMessageDialog( pnlConnInfo, "File written successfully", "Dataset Status", JOptionPane.INFORMATION_MESSAGE );
 

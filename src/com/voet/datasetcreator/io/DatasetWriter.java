@@ -73,6 +73,7 @@ public class DatasetWriter {
                     writer.write( "/>");
                     writer.write( LINE_SEP );
                 }
+                writer.write( LINE_SEP );
             }
 
             // write file footer
@@ -96,6 +97,10 @@ public class DatasetWriter {
             case Types.DECIMAL: return String.valueOf( 1 );
             case Types.NUMERIC: return String.valueOf( 1 );
             case Types.DATE: return DATE_FORMAT.format( new Date() );
+            case Types.BOOLEAN: return Boolean.TRUE.toString();
+            case Types.BIT: return "1";
+            case Types.DOUBLE: return Double.valueOf( "0" ).toString();
+            case Types.FLOAT: return Float.valueOf( "0" ).toString();
             default: return type.toString();
         }
     }
