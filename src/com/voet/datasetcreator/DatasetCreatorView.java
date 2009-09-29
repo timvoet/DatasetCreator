@@ -649,7 +649,6 @@ public class DatasetCreatorView extends FrameView {
     private void btnBuildDatasetsHandler(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuildDatasetsHandler
         SchemaMapper schema = new SchemaMapper( txtDbName.getText(), txtSchemaName.getText() );
         ButtonModel selection =  (ToggleButtonModel) btnGrpFieldOptions.getSelection();
-        System.out.println( "selectionModel:" + selection.getActionCommand() );
 
 
         MyTableModel model = (MyTableModel) tblTableNames.getModel();

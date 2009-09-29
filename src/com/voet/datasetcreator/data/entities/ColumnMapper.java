@@ -10,6 +10,9 @@ public class ColumnMapper {
     private String columnName;
     private boolean required;
     private Integer type;
+    private boolean primaryKey;
+
+
 
     /**
      * The default constructor accepting all the necessary fields.
@@ -20,10 +23,23 @@ public class ColumnMapper {
      */
     public ColumnMapper( String tableName, String columnName, boolean required,
             Integer type ) {
+        this( tableName, columnName, required, type, false );
+    }
+    /**
+     * The default constructor accepting all the necessary fields.
+     * @param tableName
+     * @param columnName
+     * @param required
+     * @param type
+     * @param primaryKey
+     */
+    public ColumnMapper( String tableName, String columnName, boolean required,
+            Integer type, boolean primaryKey ) {
         this.tableName = tableName;
         this.columnName = columnName;
         this.required = required;
         this.type = type;
+        this.primaryKey = primaryKey;
     }
 
     /**
@@ -91,7 +107,21 @@ public class ColumnMapper {
     public void setType( Integer type ) {
         this.type = type;
     }
+    /**
+     *
+     * @return
+     */
+    public boolean isPrimaryKey() {
+        return primaryKey;
+    }
 
+    /**
+     * 
+     * @param primaryKey
+     */
+    public void setPrimaryKey( boolean primaryKey ) {
+        this.primaryKey = primaryKey;
+    }
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

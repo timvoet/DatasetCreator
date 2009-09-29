@@ -12,6 +12,8 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -74,27 +76,49 @@ public class MetaDataAccessor {
     public static SchemaMapper getColumnInfo( SchemaMapper schema,
             String driverClass, String connectionString, String dbName,
             String schemaName, String username, String password ) {
-        
-        SchemaMapper mapper = new SchemaMapper( schema.getDbName(), schema.getSchemaName() );
+
+        SchemaMapper mapper = new SchemaMapper( schema.getDbName(), schema.
+                getSchemaName() );
         Connection connection = null;
         try {
             connection = getConnection( driverClass, connectionString, username,
                     password );
             DatabaseMetaData dmd = connection.getMetaData();
-            for ( TableMapper tbl: schema.getTables() ){
+            for ( TableMapper tbl : schema.getTables() ) {
                 TableMapper newTable = new TableMapper( tbl.getName() );
-                mapper.add( newTable );
-                ResultSet trs = dmd.getColumns(schema.getSchemaName(), schema.getSchemaName(), tbl.getName(), "%");
-                 while (trs.next()) {
+                Set<String> primaryKeys = new HashSet<String>();
+                try {
+                    ResultSet prs = dmd.getPrimaryKeys( schema.getSchemaName(),
+                            schema.getSchemaName(), tbl.getName() );
 
-                    String colName = trs.getString("COLUMN_NAME");
-                    int type = trs.getInt("DATA_TYPE");
-                    int nullableInt = trs.getInt("NULLABLE");
+                    while ( prs.next() ) {
+                        primaryKeys.add( prs.getString( 4 ) );
+                    }
+                } catch ( Throwable t ) {
+                    // Method not implemented by driver so ignore.
+                }
+
+                mapper.add( newTable );
+                ResultSet trs = dmd.getColumns( schema.getSchemaName(), schema.
+                        getSchemaName(), tbl.getName(), "%" );
+                while ( trs.next() ) {
+
+                    String colName = trs.getString( "COLUMN_NAME" );
+                    int type = trs.getInt( "DATA_TYPE" );
+                    int nullableInt = trs.getInt( "NULLABLE" );
                     boolean nullable = ( nullableInt != 0 );
-                    ColumnMapper cMapper = new ColumnMapper( newTable.getName(), colName, !nullable,
-                            type );
+                    ColumnMapper cMapper = null;
+                    if ( primaryKeys.contains( colName ) ) {
+                        cMapper = new ColumnMapper( newTable.getName(),
+                                colName, !nullable,
+                                type, true );
+                    } else {
+                        cMapper = new ColumnMapper( newTable.getName(),
+                                colName, !nullable,
+                                type );
+                    }
                     newTable.addColumn( cMapper );
-                 }
+                }
             }
         } catch ( SQLException ex ) {
             Logger.getLogger( MetaDataAccessor.class.getName() ).

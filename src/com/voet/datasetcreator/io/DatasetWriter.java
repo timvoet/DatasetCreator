@@ -23,15 +23,18 @@ import java.util.logging.Logger;
  * @author dev
  */
 public class DatasetWriter {
-    private static final DateFormat DATE_FORMAT = new SimpleDateFormat( "yyyy/MM/dd HH:mm:SS" );
-    private final static String LINE_SEP = System.getProperty("line.separator");
+
+    private static final DateFormat DATE_FORMAT = new SimpleDateFormat(
+            "yyyy/MM/dd HH:mm:SS" );
+    private final static String LINE_SEP = System.getProperty( "line.separator" );
     private final SchemaMapper schema;
 
     public DatasetWriter( SchemaMapper schema ) {
         this.schema = schema;
     }
 
-    public void writeDataset( File outfile, String fieldChoice, int numRows, boolean includeDefaults ) {
+    public void writeDataset( File outfile, String fieldChoice, int numRows,
+            boolean includeDefaults ) {
         BufferedWriter writer = null;
         try {
             writer = new BufferedWriter( new FileWriter( outfile ) );
@@ -42,35 +45,41 @@ public class DatasetWriter {
             writer.write( LINE_SEP );
 
             for ( TableMapper table : schema.getTables() ) {
-                for ( int i = 0; i < numRows; i++ ){
+                int id = 0;
+                for ( int i = 0; i < numRows; i++ ) {
+                    id++;
                     writer.write( "\t<" );
                     writer.write( table.getName() );
 
-                    for ( ColumnMapper column : table.getColumms()) {
-                        if ( fieldChoice.equals( "ALL" ) ){
+                    for ( ColumnMapper column : table.getColumms() ) {
+
+                        if ( fieldChoice.equals( "ALL" ) ) {
                             writer.write( " " );
                             writer.write( column.getColumnName() );
-                            writer.write( "=\"");
-                            if ( includeDefaults ){
-                                writer.append( getDefault( column.getType() ));
+                            writer.write( "=\"" );
+                            if ( column.isPrimaryKey() ) {
+                                writer.write( String.valueOf( id ) );
+                            } else if ( includeDefaults ) {
+                                writer.append( getDefault( column.getType() ) );
                             }
                             writer.write( "\"" );
 
-                        } else if ( fieldChoice.equals( "REQ" ) ){
-                            if ( column.isRequired() ){
+                        } else if ( fieldChoice.equals( "REQ" ) ) {
+                            if ( column.isRequired() ) {
                                 writer.write( " " );
                                 writer.write( column.getColumnName() );
-                                writer.write( "=\"");
-                                if ( includeDefaults ){
-                                    writer.append( getDefault( column.getType() ));
+                                writer.write( "=\"" );
+                                if ( column.isPrimaryKey() ) {
+                                    writer.write( String.valueOf( id ) );
+                                } else if ( includeDefaults ) {
+                                    writer.append( getDefault( column.getType() ) );
                                 }
                                 writer.write( "\"" );
                             }
                         } else if ( fieldChoice.equals( "NONE" ) ) {
-
                         }
                     }
-                    writer.write( "/>");
+                    writer.write( "/>" );
                     writer.write( LINE_SEP );
                 }
                 writer.write( LINE_SEP );
@@ -80,29 +89,42 @@ public class DatasetWriter {
             writer.write( "</dataset>" );
             writer.flush();
         } catch ( IOException ex ) {
-            Logger.getLogger( DatasetWriter.class.getName() ).log( Level.SEVERE, null, ex );
+            Logger.getLogger( DatasetWriter.class.getName() ).log( Level.SEVERE,
+                    null, ex );
         } finally {
             try {
                 writer.close();
             } catch ( IOException ex ) {
-                Logger.getLogger( DatasetWriter.class.getName() ).log( Level.SEVERE, null, ex );
+                Logger.getLogger( DatasetWriter.class.getName() ).log(
+                        Level.SEVERE, null, ex );
             }
         }
     }
 
     private String getDefault( Integer type ) {
         switch ( type ) {
-            case Types.VARCHAR: return "";
-            case Types.INTEGER: return String.valueOf( 1 );
-            case Types.DECIMAL: return String.valueOf( 1 );
-            case Types.NUMERIC: return String.valueOf( 1 );
-            case Types.DATE: return DATE_FORMAT.format( new Date() );
-            case Types.TIMESTAMP: return DATE_FORMAT.format( new Date() );
-            case Types.BOOLEAN: return Boolean.TRUE.toString();
-            case Types.BIT: return "1";
-            case Types.DOUBLE: return Double.valueOf( "0" ).toString();
-            case Types.FLOAT: return Float.valueOf( "0" ).toString();
-            default: return type.toString();
+            case Types.VARCHAR:
+                return "";
+            case Types.INTEGER:
+                return String.valueOf( 1 );
+            case Types.DECIMAL:
+                return String.valueOf( 1 );
+            case Types.NUMERIC:
+                return String.valueOf( 1 );
+            case Types.DATE:
+                return DATE_FORMAT.format( new Date() );
+            case Types.TIMESTAMP:
+                return DATE_FORMAT.format( new Date() );
+            case Types.BOOLEAN:
+                return Boolean.TRUE.toString();
+            case Types.BIT:
+                return "1";
+            case Types.DOUBLE:
+                return Double.valueOf( "0" ).toString();
+            case Types.FLOAT:
+                return Float.valueOf( "0" ).toString();
+            default:
+                return type.toString();
         }
     }
 }
