@@ -11,6 +11,9 @@ public class ColumnMapper {
     private boolean required;
     private Integer type;
     private boolean primaryKey;
+    private boolean foreignKey;
+    private String foreignKeyTable;
+    private String foreignKeyColumn;
 
 
 
@@ -23,7 +26,13 @@ public class ColumnMapper {
      */
     public ColumnMapper( String tableName, String columnName, boolean required,
             Integer type ) {
-        this( tableName, columnName, required, type, false );
+        this( tableName, columnName, required, type, false, false, null, null );
+
+    }
+
+    public ColumnMapper( String tableName, String columnName, boolean required,
+            Integer type, boolean primaryKey ){
+        this( tableName, columnName, required, type, primaryKey, false, null, null );
     }
     /**
      * The default constructor accepting all the necessary fields.
@@ -34,12 +43,15 @@ public class ColumnMapper {
      * @param primaryKey
      */
     public ColumnMapper( String tableName, String columnName, boolean required,
-            Integer type, boolean primaryKey ) {
+            Integer type, boolean primaryKey, boolean foreignKey, String foreignKeyTable, String foreignKeyColumn ) {
         this.tableName = tableName;
         this.columnName = columnName;
         this.required = required;
         this.type = type;
         this.primaryKey = primaryKey;
+        this.foreignKey = foreignKey;
+        this.foreignKeyTable = foreignKeyTable;
+        this.foreignKeyColumn = foreignKeyColumn;
     }
 
     /**
@@ -122,6 +134,31 @@ public class ColumnMapper {
     public void setPrimaryKey( boolean primaryKey ) {
         this.primaryKey = primaryKey;
     }
+
+    public String getForeignKeyTable() {
+        return foreignKeyTable;
+    }
+
+    public void setForeignKeyTable( String foreignKeyTable ) {
+        this.foreignKeyTable = foreignKeyTable;
+    }
+
+    public boolean isIsForeignKey() {
+        return foreignKey;
+    }
+
+    public void setIsForeignKey( boolean isForeignKey ) {
+        this.foreignKey = isForeignKey;
+    }
+
+    public String getForeignKeyColumn() {
+        return foreignKeyColumn;
+    }
+
+    public void setForeignKeyColumn( String foreignKeyColumn ) {
+        this.foreignKeyColumn = foreignKeyColumn;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

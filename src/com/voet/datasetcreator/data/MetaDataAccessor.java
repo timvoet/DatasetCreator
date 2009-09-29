@@ -12,7 +12,9 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,14 +38,14 @@ public class MetaDataAccessor {
     public static SchemaMapper getTableNames( String driverClass,
             String connectionString, String dbName, String schemaName,
             String username, String password ) {
+
         SchemaMapper mapper = new SchemaMapper( dbName, schemaName );
         Connection connection = null;
         try {
             connection = getConnection( driverClass, connectionString, username,
                     password );
             DatabaseMetaData dmd = connection.getMetaData();
-            ResultSet tbrs = dmd.getTables( schemaName, schemaName, null,
-                    new String[]{ "TABLE" } );
+            ResultSet tbrs = dmd.getTables( schemaName, schemaName, null, new String[]{ "TABLE" } );
             while ( tbrs.next() ) {
                 mapper.add( tbrs.getString( 3 ) );
             }
@@ -77,14 +79,13 @@ public class MetaDataAccessor {
             String driverClass, String connectionString, String dbName,
             String schemaName, String username, String password ) {
 
-        SchemaMapper mapper = new SchemaMapper( schema.getDbName(), schema.
-                getSchemaName() );
+        SchemaMapper mapper = new SchemaMapper( schema.getDbName(), schema.getSchemaName() );
         Connection connection = null;
         try {
-            connection = getConnection( driverClass, connectionString, username,
-                    password );
+            connection = getConnection( driverClass, connectionString, username, password );
             DatabaseMetaData dmd = connection.getMetaData();
             for ( TableMapper tbl : schema.getTables() ) {
+                System.out.println( "table:" + tbl.getName() );
                 TableMapper newTable = new TableMapper( tbl.getName() );
                 Set<String> primaryKeys = new HashSet<String>();
                 try {
@@ -98,9 +99,26 @@ public class MetaDataAccessor {
                     // Method not implemented by driver so ignore.
                 }
 
+                Map<String, String> foreignKeys = new HashMap<String, String>();
+                try {
+                    ResultSet importedKeys = dmd.getImportedKeys( schema.getSchemaName(), schema.getSchemaName(), tbl.getName() );
+                    while ( importedKeys.next() ) {
+                        String curSchema = importedKeys.getString( 6 );
+                        String targetSchema = importedKeys.getString( 2 );
+                        String curColumn = importedKeys.getString( 8 );
+                        String targetTable = importedKeys.getString( 3 );
+                        String targetColumn = importedKeys.getString( 4 );
+
+                        // only support inter schema dependencies
+                        if ( curSchema.equals( targetSchema ) ) {
+                            foreignKeys.put( curColumn, targetTable + "|" + targetColumn );
+                        }
+                    }
+                } catch ( Throwable t ) {
+                    // Method not supported by driver so ignore.
+                }
                 mapper.add( newTable );
-                ResultSet trs = dmd.getColumns( schema.getSchemaName(), schema.
-                        getSchemaName(), tbl.getName(), "%" );
+                ResultSet trs = dmd.getColumns( schema.getSchemaName(), schema.getSchemaName(), tbl.getName(), "%" );
                 while ( trs.next() ) {
 
                     String colName = trs.getString( "COLUMN_NAME" );
@@ -112,6 +130,12 @@ public class MetaDataAccessor {
                         cMapper = new ColumnMapper( newTable.getName(),
                                 colName, !nullable,
                                 type, true );
+                    } else if ( foreignKeys.containsKey( colName ) ) {
+                        String foreignRelationship = foreignKeys.get( colName );
+                        String[] targetInfo = foreignRelationship.split( "|" );
+                        cMapper = new ColumnMapper( newTable.getName(),
+                                colName, !nullable,
+                                type, false, true, targetInfo[0], targetInfo[1] );
                     } else {
                         cMapper = new ColumnMapper( newTable.getName(),
                                 colName, !nullable,
