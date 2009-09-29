@@ -16,7 +16,7 @@ public class MySqlThinConnectionStringBuilder implements ConnectionStringBuilder
     @Override
     public String build(String host, String port, String dbName, String schemaName, String username, String password) {
         StringBuilder sb = new StringBuilder();
-        sb.append( "jdbc:derby://");
+        sb.append( "jdbc:mysql://");
         sb.append( host );
         sb.append( ":" );
         sb.append( port );

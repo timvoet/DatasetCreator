@@ -97,6 +97,7 @@ public class DatasetWriter {
             case Types.DECIMAL: return String.valueOf( 1 );
             case Types.NUMERIC: return String.valueOf( 1 );
             case Types.DATE: return DATE_FORMAT.format( new Date() );
+            case Types.TIMESTAMP: return DATE_FORMAT.format( new Date() );
             case Types.BOOLEAN: return Boolean.TRUE.toString();
             case Types.BIT: return "1";
             case Types.DOUBLE: return Double.valueOf( "0" ).toString();

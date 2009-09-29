@@ -49,6 +49,7 @@ public class DriverLocator {
                             Class[] interfaces = clazz.getInterfaces();
                             for ( Class cls : interfaces ) {
                                 if ( cls.getName().equals( "java.sql.Driver" ) ) {
+                                    System.out.println( "driver class:" + name );
                                     drivers.add( name );
                                 }
                             }

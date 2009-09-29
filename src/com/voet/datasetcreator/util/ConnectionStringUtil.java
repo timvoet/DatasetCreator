@@ -25,7 +25,7 @@ public final class ConnectionStringUtil {
         knownDrivers.put( "com.mysql.jdbc.Driver", "MySQL" );
         knownDrivers.put( "org.apache.derby.jdbc.EmbeddedDriver", "Derby - Embedded" );
         knownDrivers.put( "org.apache.derby.jdbc.ClientDriver", "Derby - Client" );
-        knownDrivers.put( "org.hsqldb.jdbc.jdbcConnection", "HSQLDB" );
+        knownDrivers.put( "org.hsqldb.jdbcDriver", "HSQLDB" );
     }
 
     /**
