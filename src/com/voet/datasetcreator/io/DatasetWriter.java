@@ -20,7 +20,6 @@ import java.util.logging.Logger;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Document;
 import org.dom4j.Element;
-import org.dom4j.Node;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
 
@@ -32,14 +31,22 @@ public class DatasetWriter {
 
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat(
             "yyyy/MM/dd HH:mm:SS" );
-    private final static String LINE_SEP = System.getProperty( "line.separator" );
     private final SchemaMapper schema;
 
     public DatasetWriter( SchemaMapper schema ) {
         this.schema = schema;
     }
 
-    public void writeDataset( File outfile, String fieldChoice, int numRows,
+    /**
+     *
+     * @param outfile
+     * @param fieldChoice
+     * @param numRows
+     * @param includeDefaults
+     * @param respectConstraints
+     * @return boolean
+     */
+    public boolean writeDataset( File outfile, String fieldChoice, int numRows,
             boolean includeDefaults, boolean respectConstraints ) {
         XMLWriter writer = null;
         try {
@@ -48,9 +55,11 @@ public class DatasetWriter {
             writer = new XMLWriter( new FileWriter( outfile ), format );
             writer.write( doc );
             writer.flush();
+            return true;
         } catch ( IOException ex ) {
             Logger.getLogger( DatasetWriter.class.getName() ).log( Level.SEVERE,
                     null, ex );
+            return false;
         } finally {
             if ( writer != null ) {
                 try {
@@ -103,22 +112,21 @@ public class DatasetWriter {
         Element datasetElement = DocumentHelper.createElement( "dataset" );
         Document doc = DocumentHelper.createDocument( datasetElement );
 
-        for ( TableMapper table : schema.getTables() ){
+        for ( TableMapper table : schema.getTables() ) {
             int id = 0;
-            for ( int i = 0 ; i < numRows; i++ ) {
+            for ( int i = 0; i < numRows; i++ ) {
                 id++;
 
                 Element tableElement = datasetElement.addElement( table.getName() );
-                for ( ColumnMapper column: table.getColumms() ) {
-                    if ( fieldChoice.equals( "ALL" ) ){
+                for ( ColumnMapper column : table.getColumms() ) {
+                    if ( fieldChoice.equals( "ALL" ) ) {
                         if ( column.isPrimaryKey() ) {
                             tableElement.addAttribute( column.getColumnName(), String.valueOf( id ) );
                         } else {
-                            if ( column.isForeignKey() && respectConstraints ){
-
+                            if ( column.isForeignKey() && respectConstraints ) {
                             } else {
-                                String defaultValue ="";
-                                if( includeDefaults ) {
+                                String defaultValue = "";
+                                if ( includeDefaults ) {
                                     defaultValue = getDefault( column.getType() );
                                 }
                                 tableElement.addAttribute( column.getColumnName(), defaultValue );
@@ -129,11 +137,10 @@ public class DatasetWriter {
                         if ( column.isPrimaryKey() ) {
                             tableElement.addAttribute( column.getColumnName(), String.valueOf( id ) );
                         } else if ( column.isRequired() ) {
-                            if ( column.isForeignKey() && respectConstraints ){
-
+                            if ( column.isForeignKey() && respectConstraints ) {
                             } else {
-                                String defaultValue ="";
-                                if( includeDefaults ) {
+                                String defaultValue = "";
+                                if ( includeDefaults ) {
                                     defaultValue = getDefault( column.getType() );
                                 }
                                 tableElement.addAttribute( column.getColumnName(), defaultValue );
@@ -141,13 +148,12 @@ public class DatasetWriter {
                         }
 
                     } else if ( fieldChoice.equals( "NONE" ) ) {
-
                     }
                 }
             }
         }
         if ( respectConstraints ) {
-            doc = buildForeignKeyRelationships( doc, schema );
+            doc = buildForeignKeyRelationships( doc, schema, numRows );
         }
         return doc;
 
@@ -158,13 +164,21 @@ public class DatasetWriter {
      * @param doc The original document
      * @param schema The table schema.
      */
-    private Document buildForeignKeyRelationships( Document doc, SchemaMapper schema ) {
+    private Document buildForeignKeyRelationships( Document doc,
+            SchemaMapper schema, int numRows ) {
         Element rootElement = doc.getRootElement();
-        for ( TableMapper table: schema.getTables() ){
+
+        for ( TableMapper table : schema.getTables() ) {
             List<ColumnMapper> fkCols = table.getForeignKeys();
-            for ( ColumnMapper column: fkCols ) {
-                Element pkElement = (Element)rootElement.selectSingleNode( "/dataset/" + column.getForeignKeyTable() + "/@" + column.getForeignKeyColumn() );
-                Element curElement = (Element) rootElement.selectSingleNode( "" );
+            for ( ColumnMapper column : fkCols ) {
+                for ( int i = 0; i < numRows; i++ ) {
+                    String xpath1 = "/dataset/" + column.getForeignKeyTable() +"["+ Integer.valueOf(i+1).toString() + "]";
+                    Element pkElement = (Element) rootElement.selectSingleNode( xpath1 );
+
+                    String xpath2 = "/dataset/" + table.getName() + "["+ Integer.valueOf(i+1).toString() + "]";
+                    Element curElement = (Element) rootElement.selectSingleNode( xpath2 );
+                    curElement.addAttribute( column.getColumnName(), pkElement.attributeValue( column.getForeignKeyColumn() )  );
+                }
             }
         }
         return doc;
