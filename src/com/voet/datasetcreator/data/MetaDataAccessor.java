@@ -93,6 +93,7 @@ public class MetaDataAccessor {
                             schema.getSchemaName(), tbl.getName() );
 
                     while ( prs.next() ) {
+                        // Column name of the primary key
                         primaryKeys.add( prs.getString( 4 ) );
                     }
                 } catch ( Throwable t ) {
