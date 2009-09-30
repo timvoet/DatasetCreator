@@ -143,11 +143,11 @@ public class ColumnMapper {
         this.foreignKeyTable = foreignKeyTable;
     }
 
-    public boolean isIsForeignKey() {
+    public boolean isForeignKey() {
         return foreignKey;
     }
 
-    public void setIsForeignKey( boolean isForeignKey ) {
+    public void setForeignKey( boolean isForeignKey ) {
         this.foreignKey = isForeignKey;
     }
 

@@ -14,11 +14,13 @@ import java.sql.Types;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Document;
 import org.dom4j.Element;
+import org.dom4j.Node;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
 
@@ -87,8 +89,17 @@ public class DatasetWriter {
         }
     }
 
+    /**
+     * Method builds a document based on all the table schema meta data collected.
+     * @param fieldChoice What fields to include in the document.  Accepted values are ( ALL, REQ, NONE )
+     * @param numRows The number of table rows to create
+     * @param includeDefaults Whether to include default data or not.
+     * @param respectConstraints Whether to create foreign associations if possible
+     * @return Document A DOM4J document containing the dataset.
+     */
     private Document buildDocument( String fieldChoice, int numRows,
             boolean includeDefaults, boolean respectConstraints ) {
+
         Element datasetElement = DocumentHelper.createElement( "dataset" );
         Document doc = DocumentHelper.createDocument( datasetElement );
 
@@ -103,14 +114,30 @@ public class DatasetWriter {
                         if ( column.isPrimaryKey() ) {
                             tableElement.addAttribute( column.getColumnName(), String.valueOf( id ) );
                         } else {
-                            tableElement.addAttribute( column.getColumnName(), getDefault( column.getType() ) );
+                            if ( column.isForeignKey() && respectConstraints ){
+
+                            } else {
+                                String defaultValue ="";
+                                if( includeDefaults ) {
+                                    defaultValue = getDefault( column.getType() );
+                                }
+                                tableElement.addAttribute( column.getColumnName(), defaultValue );
+                            }
                         }
 
                     } else if ( fieldChoice.equals( "REQ" ) ) {
                         if ( column.isPrimaryKey() ) {
                             tableElement.addAttribute( column.getColumnName(), String.valueOf( id ) );
                         } else if ( column.isRequired() ) {
-                            tableElement.addAttribute( column.getColumnName(), getDefault( column.getType() ) );
+                            if ( column.isForeignKey() && respectConstraints ){
+
+                            } else {
+                                String defaultValue ="";
+                                if( includeDefaults ) {
+                                    defaultValue = getDefault( column.getType() );
+                                }
+                                tableElement.addAttribute( column.getColumnName(), defaultValue );
+                            }
                         }
 
                     } else if ( fieldChoice.equals( "NONE" ) ) {
@@ -119,45 +146,27 @@ public class DatasetWriter {
                 }
             }
         }
-
+        if ( respectConstraints ) {
+            doc = buildForeignKeyRelationships( doc, schema );
+        }
         return doc;
-//        for ( TableMapper table : schema.getTables() ) {
-//                int id = 0;
-//                for ( int i = 0; i < numRows; i++ ) {
-//                    id++;
-//                    writer.write( "\t<" );
-//                    writer.write( table.getName() );
-//
-//                    for ( ColumnMapper column : table.getColumms() ) {
-//
-//                        if ( fieldChoice.equals( "ALL" ) ) {
-//                            writer.write( " " );
-//                            writer.write( column.getColumnName() );
-//                            writer.write( "=\"" );
-//                            if ( column.isPrimaryKey() ) {
-//                                writer.write( String.valueOf( id ) );
-//                            } else if ( includeDefaults ) {
-//                                writer.append( getDefault( column.getType() ) );
-//                            }
-//                            writer.write( "\"" );
-//
-//                        } else if ( fieldChoice.equals( "REQ" ) ) {
-//                            if ( column.isRequired() ) {
-//                                writer.write( " " );
-//                                writer.write( column.getColumnName() );
-//                                writer.write( "=\"" );
-//                                if ( column.isPrimaryKey() ) {
-//                                    writer.write( String.valueOf( id ) );
-//                                } else if ( includeDefaults ) {
-//                                    writer.append( getDefault( column.getType() ) );
-//                                }
-//                                writer.write( "\"" );
-//                            }
-//                        } else if ( fieldChoice.equals( "NONE" ) ) {
-//                        }
-//                    }
-//                    writer.write( "/>" );
-//                    writer.write( LINE_SEP );
-//                }
+
+    }
+
+    /**
+     * The document that has been modified to include foreign key relationships.
+     * @param doc The original document
+     * @param schema The table schema.
+     */
+    private Document buildForeignKeyRelationships( Document doc, SchemaMapper schema ) {
+        Element rootElement = doc.getRootElement();
+        for ( TableMapper table: schema.getTables() ){
+            List<ColumnMapper> fkCols = table.getForeignKeys();
+            for ( ColumnMapper column: fkCols ) {
+                Element pkElement = (Element)rootElement.selectSingleNode( "/dataset/" + column.getForeignKeyTable() + "/@" + column.getForeignKeyColumn() );
+                Element curElement = (Element) rootElement.selectSingleNode( "" );
+            }
+        }
+        return doc;
     }
 }

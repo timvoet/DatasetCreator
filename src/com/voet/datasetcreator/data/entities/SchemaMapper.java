@@ -32,4 +32,12 @@ public class SchemaMapper {
     public String getSchemaName(){
         return this.schemaName;
     }
+
+    public List<String> getTableNames(){
+        List<String> tableNames = new ArrayList<String>();
+        for ( TableMapper table: this.tables ){
+            tableNames.add( table.getName() );
+        }
+        return tableNames;
+    }
 }

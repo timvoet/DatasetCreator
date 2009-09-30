@@ -53,4 +53,17 @@ public class TableMapper {
         return this.columns;
     }
 
+    /**
+     * returns the list of columns that are foreign keys to another table.
+     * @return List<ColumnMapper> the list of columns that are foreign keys to other tables.
+     */
+    public List<ColumnMapper> getForeignKeys(){
+        List<ColumnMapper> fkCols = new ArrayList<ColumnMapper>();
+        for ( ColumnMapper column: this.columns ){
+            if ( column.isForeignKey() ){
+                fkCols.add( column );
+            }
+        }
+        return fkCols;
+    }
 }
