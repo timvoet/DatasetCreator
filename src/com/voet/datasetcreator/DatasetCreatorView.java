@@ -683,8 +683,13 @@ public class DatasetCreatorView extends FrameView {
         } else {
             outFile = new File( System.getProperty( "user.home" ), fileName );
         }
-        writer.writeDataset( outFile, selection.getActionCommand(), Integer.parseInt(txtNumRows.getText()), chkGenDefaults.isSelected(), chkConstraints.isSelected() );
-        JOptionPane.showMessageDialog( pnlConnInfo, "File written successfully", "Dataset Status", JOptionPane.INFORMATION_MESSAGE );
+        boolean success = writer.writeDataset( outFile, selection.getActionCommand(), Integer.parseInt(txtNumRows.getText()), chkGenDefaults.isSelected(), chkConstraints.isSelected() );
+        if ( success ) {
+            JOptionPane.showMessageDialog( pnlConnInfo, "File written successfully", "Dataset Status", JOptionPane.INFORMATION_MESSAGE );
+        } else {
+            JOptionPane.showMessageDialog( pnlConnInfo, "Error writting file", "Dataset Status", JOptionPane.ERROR_MESSAGE );
+        }
+
 
     }//GEN-LAST:event_btnBuildDatasetsHandler
     // Variables declaration - do not modify//GEN-BEGIN:variables

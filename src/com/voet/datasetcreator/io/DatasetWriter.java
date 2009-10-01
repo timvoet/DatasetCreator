@@ -30,7 +30,7 @@ import org.dom4j.io.XMLWriter;
 public class DatasetWriter {
 
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat(
-            "yyyy/MM/dd HH:mm:SS" );
+            "yyyy-MM-dd HH:mm:ss" );
     private final SchemaMapper schema;
 
     public DatasetWriter( SchemaMapper schema ) {
