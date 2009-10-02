@@ -8,9 +8,7 @@
         <description kind="short">Dataset Creator</description>
     <offline-allowed/>
 </information>
-<security>
-<all-permissions/>
-</security>
+
     <resources>
 <j2se version="1.6+"/>
 <jar eager="true" href="DatasetCreator.jar" main="true"/>
