@@ -20,13 +20,18 @@ import java.util.logging.Logger;
  */
 public class DriverLocator {
 
+    private static void showinfo(){
+
+    }
     public static List<String> locateDrivers() {
+        showinfo();
         List<String> drivers = new ArrayList<String>();
         String path = System.getProperty( "java.class.path" );
         System.out.println( "path:" + path );
         String[] split = path.split( System.getProperty( "path.separator" ) );
         ClassLoader clsLoader = DriverLocator.class.getClassLoader();
-        for ( String element : split ) {
+        
+         for ( String element : split ) {
             File file = new File( element );
             if ( file.isDirectory() ) {
                 continue;
