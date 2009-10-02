@@ -22,24 +22,14 @@ import java.util.logging.Logger;
  */
 public class DriverLocator {
 
-    private static void showinfo() {
-        Enumeration<Driver> drivers = DriverManager.getDrivers();
-        while ( drivers.hasMoreElements() ) {
-            Driver driver = drivers.nextElement();
-            System.out.println( "driver:" + driver.getClass().getName() );
-        }
-    }
-
     public static List<String> locateDrivers() {
         List<String> knownDrivers = new ArrayList<String>();
-        System.out.println( "jdbc.drivers:" + System.getProperty( "jdbc.drivers") );
         Enumeration<Driver> drivers = DriverManager.getDrivers();
         while ( drivers.hasMoreElements() ) {
             Driver driver = drivers.nextElement();
             if ( ConnectionStringUtil.isKnownDriver( driver.getClass().getName() ) ){
                 knownDrivers.add( driver.getClass().getName() );
             }
-            System.out.println( "driver:" + driver.getClass().getName() );
         }
         return knownDrivers;
     }
