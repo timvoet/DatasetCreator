@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jnlp codebase="file:/data/development/programming/java/DatasetCreator/dist/" href="launch.jnlp" spec="1.0+">
+    <information>
+        <title>Dataset Creator</title>
+        <vendor>Tim Voet</vendor>
+        <homepage href="http://timvoet.github.com/DatasetCreator"/>
+        <description>A project designed to help in the creation of DBUnit datasets.</description>
+        <description kind="short">Dataset Creator</description>
+    <offline-allowed/>
+</information>
+<security>
+<all-permissions/>
+</security>
+    <resources>
+<j2se version="1.6+"/>
+<jar eager="true" href="DatasetCreator.jar" main="true"/>
+    <jar href="lib/appframework-1.0.3.jar"/>
+<jar href="lib/swing-worker-1.1.jar"/>
+<jar href="lib/derby.jar"/>
+<jar href="lib/derbyclient.jar"/>
+<jar href="lib/mysql-connector-java-5.1.8-bin.jar"/>
+<jar href="lib/ojdbc6.jar"/>
+<jar href="lib/hsqldb.jar"/>
+<jar href="lib/dom4j-1.6.1.jar"/>
+<jar href="lib/jaxen-1.1.1.jar"/>
+</resources>
+    <application-desc main-class="com.voet.datasetcreator.DatasetCreatorApp">
+    </application-desc>
+</jnlp>
