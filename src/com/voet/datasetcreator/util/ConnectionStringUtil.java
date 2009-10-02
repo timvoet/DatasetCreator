@@ -21,11 +21,10 @@ public final class ConnectionStringUtil {
     private static Map<String, String> knownDrivers = new HashMap<String, String>();
 
     static {
-        knownDrivers.put( "oracle.jdbc.driver.OracleDriver", "Oracle - thin" );
+        knownDrivers.put( "oracle.jdbc.OracleDriver", "Oracle - thin" );
         knownDrivers.put( "com.mysql.jdbc.Driver", "MySQL" );
-        knownDrivers.put( "org.apache.derby.jdbc.EmbeddedDriver", "Derby - Embedded" );
         knownDrivers.put( "org.apache.derby.jdbc.ClientDriver", "Derby - Client" );
-        knownDrivers.put( "org.hsqldb.jdbcDriver", "HSQLDB" );
+        knownDrivers.put( "org.hsqldb.jdbc.JDBCDriver", "HSQLDB" );
     }
 
     /**
@@ -95,16 +94,16 @@ public final class ConnectionStringUtil {
      */
     public static Connection getConnection( String driverClass, String connectionString, String username, String password ){
         try {
-            Class.forName( driverClass );
+//            Class.forName( driverClass );
             Connection con = DriverManager.getConnection( connectionString,
                     username, password );
             return con;
         } catch ( SQLException ex ) {
             Logger.getLogger( ConnectionStringUtil.class.getName() ).
                     log( Level.SEVERE, null, ex );
-        } catch ( ClassNotFoundException ex ) {
-            Logger.getLogger( ConnectionStringUtil.class.getName() ).
-                    log( Level.SEVERE, null, ex );
+//        } catch ( ClassNotFoundException ex ) {
+//            Logger.getLogger( ConnectionStringUtil.class.getName() ).
+//                    log( Level.SEVERE, null, ex );
         }
         return null;
 

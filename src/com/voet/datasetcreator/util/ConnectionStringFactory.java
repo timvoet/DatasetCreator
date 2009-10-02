@@ -23,11 +23,10 @@ public class ConnectionStringFactory {
     private static Map<String, String> impls = new HashMap<String, String>();
 
     static {
-        impls.put( "oracle.jdbc.driver.OracleDriver", OracleThinConnectionStringBuilder.class.getName() );
+        impls.put( "oracle.jdbc.OracleDriver", OracleThinConnectionStringBuilder.class.getName() );
         impls.put( "org.apache.derby.jdbc.ClientDriver", DerbyThinConnectionStringBuilder.class.getName() );
-        impls.put( "org.apache.derby.jdbc.EmbeddedDriver", DerbyThinConnectionStringBuilder.class.getName() );
         impls.put( "com.mysql.jdbc.Driver", MySqlThinConnectionStringBuilder.class.getName() );
-        impls.put( "org.hsqldb.jdbcDriver", HSQLDBConnectionStringBuilder.class.getName() );
+        impls.put( "org.hsqldb.jdbc.JDBCDriver", HSQLDBConnectionStringBuilder.class.getName() );
     }
 
     public static ConnectionStringBuilder getBuilder( String driverClass ) {
