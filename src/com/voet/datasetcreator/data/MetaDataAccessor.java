@@ -96,6 +96,7 @@ public class MetaDataAccessor {
                         // Column name of the primary key
                         primaryKeys.add( prs.getString( 4 ) );
                     }
+                    prs.close();
                 } catch ( Throwable t ) {
                     // Method not implemented by driver so ignore.
                 }
@@ -110,20 +111,12 @@ public class MetaDataAccessor {
                         String targetTable = importedKeys.getString( 3 );
                         String targetColumn = importedKeys.getString( 4 );
 
-                        System.out.println( "1:" + importedKeys.getString(1) );
-                        System.out.println( "2:" + importedKeys.getString(2) );
-                        System.out.println( "3:" + importedKeys.getString(3) );
-                        System.out.println( "4:" + importedKeys.getString(4) );
-                        System.out.println( "5:" + importedKeys.getString(5) );
-                        System.out.println( "6:" + importedKeys.getString(6) );
-                        System.out.println( "7:" + importedKeys.getString(7) );
-                        System.out.println( "8:" + importedKeys.getString(8) );
-                        System.out.println( "9:" + importedKeys.getString(9) );
                         // only support inter schema dependencies
                         if ( curSchema.equals( targetSchema ) ) {
                             foreignKeys.put( curColumn, targetTable + ":" + targetColumn );
                         }
                     }
+                    importedKeys.close();
                 } catch ( Throwable t ) {
                     // Method not supported by driver so ignore.
                 }

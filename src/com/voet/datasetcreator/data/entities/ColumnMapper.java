@@ -41,6 +41,9 @@ public class ColumnMapper {
      * @param required
      * @param type
      * @param primaryKey
+     * @param foreignKey
+     * @param foreignKeyTable
+     * @param foreignKeyColumn
      */
     public ColumnMapper( String tableName, String columnName, boolean required,
             Integer type, boolean primaryKey, boolean foreignKey, String foreignKeyTable, String foreignKeyColumn ) {
