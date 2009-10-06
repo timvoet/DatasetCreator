@@ -3,6 +3,16 @@
  */
 package com.voet.datasetcreator;
 
+import com.jgoodies.looks.plastic.Plastic3DLookAndFeel;
+import com.jgoodies.looks.plastic.PlasticLookAndFeel;
+import com.jgoodies.looks.plastic.PlasticXPLookAndFeel;
+import com.jgoodies.looks.plastic.theme.BrownSugar;
+import com.jgoodies.looks.plastic.theme.DesertBlue;
+import com.jgoodies.looks.plastic.theme.ExperienceGreen;
+import com.jgoodies.looks.plastic.theme.ExperienceRoyale;
+import com.jgoodies.looks.plastic.theme.SkyBlue;
+import com.jgoodies.looks.plastic.theme.SkyYellow;
+import com.jgoodies.looks.windows.WindowsLookAndFeel;
 import com.voet.datasetcreator.swing.MyComboBoxModel;
 import com.voet.datasetcreator.util.ConnectionStringUtil;
 import com.voet.datasetcreator.util.DriverLocator;
@@ -18,7 +28,10 @@ import net.infonode.gui.laf.InfoNodeLookAndFeel;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
 import org.jvnet.substance.SubstanceLegacyDefaultLookAndFeel;
-import org.jvnet.substance.SubstanceLookAndFeel;
+import org.jvnet.substance.api.skin.SubstanceGraphiteAquaLookAndFeel;
+import org.jvnet.substance.skin.SubstanceAutumnLookAndFeel;
+import org.jvnet.substance.skin.SubstanceBusinessBlueSteelLookAndFeel;
+import org.jvnet.substance.skin.SubstanceCremeCoffeeLookAndFeel;
 
 /**
  * The main class of the application.
@@ -72,8 +85,45 @@ public class DatasetCreatorApp extends SingleFrameApplication {
 
     public static void installCustomLAFs() {
         // Add custom LAF's
-        UIManager.installLookAndFeel( "Info Node", InfoNodeLookAndFeel.class.getName() );
-        UIManager.installLookAndFeel( "Substance", SubstanceLegacyDefaultLookAndFeel.class.getName() );
+        LookAndFeel laf = null;
+        laf = new InfoNodeLookAndFeel();
+        if ( laf.isSupportedLookAndFeel() ) {
+            UIManager.installLookAndFeel( new UIManager.LookAndFeelInfo( laf.getName(), laf.getClass().getName() ) );
+        }
+        laf = new SubstanceBusinessBlueSteelLookAndFeel();
+        if ( laf.isSupportedLookAndFeel() ) {
+            UIManager.installLookAndFeel( new UIManager.LookAndFeelInfo( laf.getName(), laf.getClass().getName() ) );
+        }
+        laf = new SubstanceCremeCoffeeLookAndFeel();
+        if ( laf.isSupportedLookAndFeel() ) {
+            UIManager.installLookAndFeel( new UIManager.LookAndFeelInfo( laf.getName(), laf.getClass().getName() ) );
+        }
+        laf = new SubstanceGraphiteAquaLookAndFeel();
+        if ( laf.isSupportedLookAndFeel() ) {
+            UIManager.installLookAndFeel( new UIManager.LookAndFeelInfo( laf.getName(), laf.getClass().getName() ) );
+        }
+
+        laf = new WindowsLookAndFeel();
+        if ( laf.isSupportedLookAndFeel() ) {
+            UIManager.installLookAndFeel( new UIManager.LookAndFeelInfo( laf.getName(), laf.getClass().getName() ) );
+        }
+        laf = new PlasticLookAndFeel();
+        if ( laf.isSupportedLookAndFeel() ) {
+            UIManager.installLookAndFeel( new UIManager.LookAndFeelInfo( laf.getName(), laf.getClass().getName() ) );
+        }
+
+        PlasticLookAndFeel.set3DEnabled( true );
+        PlasticLookAndFeel.setPlasticTheme( new ExperienceGreen());
+        laf = new Plastic3DLookAndFeel();
+        if ( laf.isSupportedLookAndFeel() ) {
+            UIManager.installLookAndFeel( new UIManager.LookAndFeelInfo( laf.getName(), laf.getClass().getName() ) );
+        }
+
+        laf = new PlasticXPLookAndFeel();
+        if ( laf.isSupportedLookAndFeel() ) {
+            UIManager.installLookAndFeel( new UIManager.LookAndFeelInfo( laf.getName(), laf.getClass().getName() ) );
+        }
+
     }
 
     public static void updateLAF( String className ) {
