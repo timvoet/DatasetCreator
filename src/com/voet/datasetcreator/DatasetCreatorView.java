@@ -711,7 +711,7 @@ public class DatasetCreatorView extends FrameView {
         DatasetWriter writer = new DatasetWriter( schema );
         String fileName = txtFileLocation.getText();
         File outFile = null;
-        if ( fileName.indexOf( System.getProperty( "path.separator" ) ) > 0 ){
+        if ( fileName.indexOf( System.getProperty( "file.separator" ) ) > 0 ){
             outFile = new File( fileName );
         } else {
             outFile = new File( System.getProperty( "user.home" ), fileName );

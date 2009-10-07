@@ -22,7 +22,7 @@
                           <Component id="cboDrivers" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="pnlTableNames" pref="258" max="32767" attributes="0"/>
+                          <Component id="pnlTableNames" pref="259" max="32767" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="jPanel1" max="32767" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -296,11 +296,11 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="254" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="255" max="32767" attributes="0"/>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="scrlPnlTableNames" pref="230" max="32767" attributes="0"/>
+                          <Component id="scrlPnlTableNames" pref="231" max="32767" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -352,7 +352,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="2" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -383,7 +383,7 @@
                                   <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="chkGenDefaults" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="299" max="-2" attributes="0"/>
+                              <EmptySpace pref="300" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="rdoAll" min="-2" max="-2" attributes="0"/>
@@ -395,25 +395,25 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="btnBuildDatasets" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="329" max="32767" attributes="0"/>
+                              <EmptySpace pref="330" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="txtFileLocation" min="-2" pref="319" max="-2" attributes="1"/>
-                              <EmptySpace pref="119" max="32767" attributes="0"/>
+                              <EmptySpace pref="120" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="369" max="32767" attributes="0"/>
+                              <EmptySpace pref="370" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtNumRows" pref="129" max="32767" attributes="0"/>
+                              <Component id="txtNumRows" pref="130" max="32767" attributes="0"/>
                               <EmptySpace min="-2" pref="196" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="chkConstraints" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="288" max="32767" attributes="0"/>
+                              <EmptySpace pref="289" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
