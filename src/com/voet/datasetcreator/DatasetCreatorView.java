@@ -713,6 +713,16 @@ public class DatasetCreatorView extends FrameView {
         File outFile = null;
         if ( fileName.indexOf( System.getProperty( "file.separator" ) ) > 0 ){
             outFile = new File( fileName );
+            if ( !outFile.exists() ){
+                File parent = outFile.getParentFile();
+                if ( !parent.exists() ){
+                    JOptionPane.showMessageDialog( pnlConnInfo, "Parent folder does not exists:" + outFile.getAbsolutePath(), "Invalid file.", JOptionPane.ERROR_MESSAGE );
+                    return;
+                } else if ( !parent.isDirectory() ) {
+                    JOptionPane.showMessageDialog( pnlConnInfo, "Parent is not a folder:" + outFile.getAbsolutePath(), "Invalid file.", JOptionPane.ERROR_MESSAGE );
+                    return;
+                }
+            }
         } else {
             outFile = new File( System.getProperty( "user.home" ), fileName );
         }
